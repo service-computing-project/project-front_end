@@ -1,0 +1,22 @@
+<div class="rootContainer">
+  <div class="navContainer">
+    <span>Blog</span>
+    <nav class="nav">
+      <div class="notification">
+
+      </div>
+      <div class="user" *ngIf="isLogin()">
+        <img>
+        <a [routerLink]="" routerLinkActive="active">
+          <span>这里是一个用户头像</span>
+        </a>
+      </div>
+      <div class="user" *ngIf="!isLogin()">
+        <img>
+        <a [routerLink]="" routerLinkActive="active">
+          <span>登录/注册</span>
+        </a>
+      </div>
+    </nav>
+  </div>
+</div>
