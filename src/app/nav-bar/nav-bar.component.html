@@ -12,7 +12,10 @@
         </a>
       </div>
       <div class="user" *ngIf="!isLogin()">
-
+        <button nz-button [nzType]="'primary'" (click)="showModal()"><span>登录/注册</span></button>
+        <nz-modal [(nzVisible)]="isVisible" nzTitle=" " (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+          <p>TEST</p>
+        </nz-modal>
       </div>
     </nav>
   </div>

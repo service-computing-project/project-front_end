@@ -19,4 +19,16 @@ export class NavBarComponent implements OnInit {
     return false;
   }
 
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
 }

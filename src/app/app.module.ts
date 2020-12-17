@@ -12,7 +12,7 @@ import { ContentComponent } from './content/content.component';
 import { UserComponent } from './user/user.component';
 import { ErrorComponent } from './error/error.component';
 
-import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
@@ -45,6 +45,10 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar'
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+
+registerLocaleData(en);
 
 const nzSharedModules = [
   NzDropDownModule,
@@ -97,7 +101,7 @@ const nzSharedModules = [
     BrowserAnimationsModule,
     ...nzSharedModules,
   ],
-  providers: [],
+  providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
