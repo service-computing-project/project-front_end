@@ -7,6 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { HomeComponent } from './home/home.component';
+import { ContentComponent } from './content/content.component';
+import { UserComponent } from './user/user.component';
+import { ErrorComponent } from './error/error.component';
 
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -79,7 +83,11 @@ const nzSharedModules = [
 @NgModule({
   declarations: [
     AppComponent,
-    NavBarComponent
+    NavBarComponent,
+    HomeComponent,
+    ContentComponent,
+    UserComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
