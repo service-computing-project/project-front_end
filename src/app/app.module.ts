@@ -47,6 +47,7 @@ import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 
@@ -86,6 +87,7 @@ const nzSharedModules = [
   NzAvatarModule,
   NzLayoutModule,
   NzBreadCrumbModule,
+  NzTypographyModule
 ];
 
 @NgModule({
