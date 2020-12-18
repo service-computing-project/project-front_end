@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { HomeService } from './home.service';
+import { PublicDataItem } from './home.entity';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +9,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  publicContents: PublicDataItem[];
+  contentID = '5c3765bd7a2bdd000111e107';
 
-  constructor() { }
+
+  constructor(
+    private readonly homeService: HomeService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.homeService
+      .getAllPublicData()
+      .subscribe(data => {
+        this.publicContents = data.Data;
+        console.log('res', data);
+        console.log('this.allData', this.publicContents);
+      });
   }
 
 }
