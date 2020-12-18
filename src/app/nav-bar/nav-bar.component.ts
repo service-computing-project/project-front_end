@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from "@angular/router";
+
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,17 +11,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class NavBarComponent implements OnInit {
 
   isVisible = false;
-  constructor() { }
+  isLoginStatus = false;
+  userId = "5fd8e8a5c93c73399fa8d448";
+  constructor(private routeInfo:ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   isLogin(){
-    return false;
+    return this.isLoginStatus;
   }
 
   showModal(): void {
     this.isVisible = true;
+    this.isLoginStatus = true;
   }
 
   handleOk(): void {
@@ -29,6 +33,10 @@ export class NavBarComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+  }
+
+  jumpToUser(): void {
+    this.router.navigate(['/user/'+this.userId]);
   }
 
 }
