@@ -1,0 +1,16 @@
+.mainContainer {
+  width: 80%;
+  margin: 32px auto;
+  display: grid;
+  grid-template-columns: 28% 70%;
+  grid-template-areas: 'userInfoContainer blogListContainer';
+  grid-column-gap: 16px;
+  .userInfoContainer {
+    background-color: #fff;
+    grid-area: userInfoContainer
+  }
+  .blogListContainer {
+    background-color: #fff;
+    grid-area: blogListContainer;
+  }
+}

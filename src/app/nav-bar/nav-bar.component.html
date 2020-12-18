@@ -1,19 +1,24 @@
 <div class="rootContainer">
   <div class="navContainer">
-    <span>Blog</span>
-    <nav class="nav">
-      <div class="notification">
-
-      </div>
-      <div class="user" *ngIf="isLogin()">
-        <img>
-        <a [routerLink]="" routerLinkActive="active">
-          <span>这里是一个用户头像</span>
-        </a>
-      </div>
-      <div class="user" *ngIf="!isLogin()">
-
-      </div>
-    </nav>
+    <nz-layout>
+      <nz-header>
+        <ul nz-menu nzTheme="dark" nzMode="horizontal">
+          <li nz-menu-item>nav 1</li>
+          <li nz-menu-item>nav 2</li>
+        </ul>
+        <div class="user" *ngIf="isLogin()">
+          <img src="">
+          <a (click)="jumpToUser()" routerLinkActive="active">
+            <span>这里是一个用户头像</span>
+          </a>
+        </div>
+        <div class="user" *ngIf="!isLogin()">
+          <button nz-button (click)="showModal()" class="login"><span>登录/注册</span></button>
+          <nz-modal [(nzVisible)]="isVisible" nzTitle=" " (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+            <p>TEST</p>
+          </nz-modal>
+        </div>
+      </nz-header>
+    </nz-layout>
   </div>
 </div>
