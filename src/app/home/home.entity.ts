@@ -1,22 +1,13 @@
+import { ContentEntity } from './../content/content.entity'
+
 export interface PublicRes {
   State: string;
   Data: PublicDataItem[];
 }
 
 export interface PublicDataItem {
-  Data: ContentDetailData;
+  Data: ContentEntity;
   User: UserEntity;
-}
-
-export interface ContentDetailData {
-  ID: string;
-  Name: string;
-  Detail: string;
-  OwnID: string;
-  PublishDate: string;
-  LikeNum: number;
-  Public: boolean;
-  Tag: [];
 }
 
 export interface UserEntity {
@@ -27,6 +18,6 @@ export interface UserEntity {
 
 export interface ContentDetailRes {
   State: string;
-  Data: ContentDetailData[];
+  Data: ContentEntity[];
   User: UserEntity[];
 }

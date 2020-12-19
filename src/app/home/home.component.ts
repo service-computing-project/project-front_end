@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { HomeService } from './home.service';
 import { PublicDataItem } from './home.entity';
 
@@ -14,8 +13,7 @@ export class HomeComponent implements OnInit {
 
 
   constructor(
-    private readonly homeService: HomeService,
-    private route: ActivatedRoute
+    private readonly homeService: HomeService
   ) { }
 
   ngOnInit(): void {
