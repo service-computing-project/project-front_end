@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -48,6 +48,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 
@@ -87,7 +88,8 @@ const nzSharedModules = [
   NzAvatarModule,
   NzLayoutModule,
   NzBreadCrumbModule,
-  NzTypographyModule
+  NzTypographyModule,
+  NzSpaceModule
 ];
 
 @NgModule({
@@ -103,6 +105,7 @@ const nzSharedModules = [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ...nzSharedModules,
