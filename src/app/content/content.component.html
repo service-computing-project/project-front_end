@@ -1,1 +1,61 @@
-<p>content works!</p>
+<div class="layout">
+  <div class="layout-content">
+    <div class="inner-content">
+      <div class="content-card">
+        <nz-card [nzActions]="[actionLike, actionEdit, actionDelete, actionEllipsis]">
+          <nz-card-meta [nzTitle]="authorData.Name" [nzDescription]="contentDetail.PublishDate | date:'yyyy-MM-dd HH:mm:ss'" [nzAvatar]="avatarTemplate"></nz-card-meta>
+          <p class="pt-2">
+            {{ contentDetail.Detail }}
+          </p>
+          <div class="tag-container">
+            <nz-space>
+              <nz-space-item *ngFor="let tag of contentDetail.Tag">
+                <nz-tag nzMode="default">
+                  {{ sliceTagName(addHashTag(tag)) }}
+                </nz-tag>
+              </nz-space-item>
+            </nz-space>
+          </div>
+        </nz-card>
+        <ng-template #avatarTemplate>
+          <!-- <i nz-icon [nzType]="'smile'" [nzTheme]="'outline'" style="width: 32px; height: 32px;"></i> -->
+          <nz-avatar *ngIf="!authorData.Avatar || authorData.Avatar ==''" nzText="U" style="background-color: #4b769e;"></nz-avatar>
+          <nz-avatar *ngIf="authorData.Avatar && authorData.Avatar !=''" [nzSrc]="authorData.Avatar"></nz-avatar>
+        </ng-template>
+        <ng-template #actionSetting>
+          <i nz-icon nzType="setting"></i>
+        </ng-template>
+        <ng-template #actionLike>
+          <i class="like-icon" nz-icon nzType="like" nzTheme="outline"></i>
+          <span class="like-num pl-1">{{contentDetail.LikeNum}}</span>
+        </ng-template>
+        <ng-template #actionEdit>
+          <i nz-icon nzType="edit" nzTheme="outline" (click)="showEditModal()"></i>
+        </ng-template>
+        <ng-template #actionDelete>
+          <i nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm()"></i>
+        </ng-template>
+        <ng-template #actionEllipsis>
+          <i nz-icon nzType="ellipsis"></i>
+        </ng-template>
+        <nz-modal
+          [(nzVisible)]="isEditVisible"
+          nzTitle="编辑"
+          (nzOnCancel)="handleEditCancel()"
+          (nzOnOk)="handleEditOk()"
+          [nzOkLoading]="isEditOkLoading"
+        >
+          <form nz-form [formGroup]="form" nzLayout="vertical">
+            <nz-form-item>
+              <nz-form-control>
+                <!-- <nz-textarea-count [nzMaxCharacterCount]="140"> -->
+                  <textarea rows="4" formControlName="content" nz-input></textarea>
+                <!-- </nz-textarea-count> -->
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-modal>
+      </div>
+    </div>
+  </div>
+</div>
