@@ -11,3 +11,8 @@ export interface InfoEntity {
   Bio: string;
   Gender: string;
 }
+
+//test
+export interface ReturnData {
+  data: string;
+}

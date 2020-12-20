@@ -1,0 +1,35 @@
+.mainContainer {
+  padding: 50px;
+  width: 600px;
+  margin: 0 auto;
+  h1 {
+    font-size: 36px;
+    width: 120px;
+    margin: 0 auto;
+  }
+  .frameContainer {
+    margin-top: 50px;
+    .formGroup {
+      width: 250px;
+      margin: 0 auto;
+      .email, .username, .password {
+        width: 250px;
+        height: 36px;
+      }
+      .email, .username, .password {
+        margin: 10px 0;
+      }
+      .loginLabel {
+        line-height: 35px;
+        font-size: 16px;
+      }
+      .registerBtn {
+        width: 100px;
+        float: right;
+      }
+      .tips {
+        color: red;
+      }
+    }
+  }
+}

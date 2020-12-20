@@ -1,18 +1,19 @@
 <div class="rootContainer">
   <div class="navContainer">
-    <nz-layout *ngIf="showBar()">
+    <nz-layout>
       <nz-header>
-        <ul nz-menu nzTheme="dark" nzMode="horizontal">
+        <a routerLinkActive="active" routerLink="/"><img src="https://cdn.jsdelivr.net/gh/sherryjw/StaticResource@master/image/logo-03.png" height="50"></a>
+        <!-- <ul nz-menu nzTheme="dark" nzMode="horizontal">
           <li nz-menu-item>nav 1</li>
           <li nz-menu-item>nav 2</li>
-        </ul>
+        </ul> -->
         <div class="user" *ngIf="isLogin()">
           <img src="">
           <a (click)="jumpToUser()" routerLinkActive="active">
             <span>这里是一个用户头像</span>
           </a>
         </div>
-        <div class="user" *ngIf="!isLogin()">
+        <div class="user" *ngIf="!isLogin() && showBar()">
           <button nz-button (click)="jumpToLogin()" class="login"><span>登录/注册</span></button>
         </div>
       </nz-header>

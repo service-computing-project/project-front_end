@@ -4,6 +4,7 @@ import { apiUrl } from '../app.config';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { RegisterService } from './register.service';
 
 @Component({
   selector: 'app-register',
@@ -12,9 +13,12 @@ import { catchError, retry } from 'rxjs/operators';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private readonly registerService: RegisterService) { }
 
-  user: any = {};
+  model: any = {};
   loading = false;
 
   ngOnInit(): void {
@@ -22,16 +26,19 @@ export class RegisterComponent implements OnInit {
 
   register() {
     this.loading = true;
-    return this.http.post(apiUrl + 'api/user/register', this.user)
-      .subscribe(
-        data => {
-          console.log("Register Successfully!");
-          this.router.navigate(['/login']);
-        },
-        error => {
-          console.log(error);
-          this.loading = false;
-        });
-    }
+    this.registerService.postRegister("1", "1", "1").subscribe(data => {
+      console.log(data);
+    });
+    // return this.http.post(apiUrl + 'api/user/register', this.model)
+    //   .subscribe(
+    //     data => {
+    //       console.log("Register Successfully!");
+    //       this.router.navigate(['/login']);
+    //     },
+    //     error => {
+    //       console.log(error);
+    //       this.loading = false;
+    //     });
+  }
 
 }

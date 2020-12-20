@@ -1,21 +1,36 @@
 <div class="mainContainer">
-  <h1>Login</h1>
+  <h1>Sign in</h1>
   <div class="frameContainer">
     <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
       <div class="formGroup" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-          <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+          <!-- <label for="username">Username</label> -->
+          <nz-input-group nzPrefixIcon="user" class="username">
+            <input nz-input type="text" name="userName" placeholder="Username" [(ngModel)]="model.username" #username="ngModel" required/>
+          </nz-input-group>
+          <div *ngIf="f.submitted && !username.valid" class="tips">Username is required</div>
       </div>
       <div class="formGroup" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-          <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+          <!-- <label for="password">Password</label> -->
+          <nz-input-group nzPrefixIcon="lock" class="password">
+            <input nz-input type="password" name="password" placeholder="Password" [(ngModel)]="model.password" #password="ngModel" required/>
+          </nz-input-group>
+          <div *ngIf="f.submitted && !password.valid" class="tips">Password is required</div>
       </div>
       <div class="formGroup">
-          <button [disabled]="loading" class="btn btn-primary">Login</button>
-          <a [routerLink]="['/register']" class="btn btn-link">Create account</a>
+          <span class="registerLabel"><a [routerLink]="['/register']">Create account?</a></span>
+          <!-- <button [disabled]="loading" class="btn btn-primary">Login</button> -->
+          <button nz-button nzType="primary" class="loginBtn" [disabled]="loading">
+            Login
+          </button>
+          <!-- <nz-alert
+            nzType="error"
+            nzMessage="错误"
+            nzDescription="用户名或密码错误"
+            nzShowIcon
+            *ngIf="this.status == 'Fail'"
+          >
+          </nz-alert> -->
       </div>
-  </form>
+    </form>
   </div>
 </div>

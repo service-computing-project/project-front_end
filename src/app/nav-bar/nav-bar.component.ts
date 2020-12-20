@@ -13,8 +13,12 @@ export class NavBarComponent implements OnInit {
   isVisible = false;
   isLoginStatus = false;
   userId: string;
-  // userId = "5fd8e8a5c93c73399fa8d448";
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private location: Location) {
+    }
 
   ngOnInit(): void {
   }
@@ -32,11 +36,7 @@ export class NavBarComponent implements OnInit {
   }
 
   showBar(){
-    // var locationUrl = Location.search();
-    // this.activatedRoute.queryParams.subscribe((params: Params) => {
-    //   console.log(params);
-    // });
-    return true;
+    return !(this.location.isCurrentPathEqualTo('/login') || this.location.isCurrentPathEqualTo('/register'));
   }
 
 }
