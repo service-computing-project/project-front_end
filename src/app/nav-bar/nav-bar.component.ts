@@ -14,7 +14,7 @@ export class NavBarComponent implements OnInit {
   isLoginStatus = false;
   userId: string;
   // userId = "5fd8e8a5c93c73399fa8d448";
-  constructor(private routeInfo:ActivatedRoute, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -32,6 +32,10 @@ export class NavBarComponent implements OnInit {
   }
 
   showBar(){
+    // var locationUrl = Location.search();
+    // this.activatedRoute.queryParams.subscribe((params: Params) => {
+    //   console.log(params);
+    // });
     return true;
   }
 
