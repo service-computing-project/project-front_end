@@ -17,6 +17,7 @@ export class UserService {
 
   public getUserInfo(id: string): Observable<UserInfoEntity> {
     let userUrl = this.userBaseUrl + id;
+    console.log(userUrl);
     return this.http.get<UserInfoEntity>(userUrl);
   }
 
