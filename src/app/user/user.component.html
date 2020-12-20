@@ -1,15 +1,14 @@
 <div class="mainContainer">
   <div class="userInfoContainer">
-    <div class="avator" *ngIf="userData">
-      <img src="{{userData.Info.Avator}}">
+    <div class="avator" *ngIf="userInfoData">
+      <img src="{{userInfoData.Info.Avator}}">
     </div>
-    <div class="userInfo" *ngIf="userData">
-      <p>State: {{userData.State}}</p>
-      <p>ID: {{userData.ID}}</p>
-      <p>Email: {{userData.Email}}</p>
-      <p>Name: {{userData.Info.Name}}</p>
-      <p>Bio: {{userData.Info.Bio}}</p>
-      <p>Gender: {{userData.Info.Gender}}</p>
+    <div class="userInfo" *ngIf="userInfoData">
+      <p class="name">Name: {{userInfoData.Info.Name}}</p>
+      <p class="bio">Bio: {{userInfoData.Info.Bio}}</p>
+      <p class="id">ID: {{userInfoData.ID}}</p>
+      <p class="email">Email: {{userInfoData.Email}}</p>
+      <p class="gender">Gender: {{userInfoData.Info.Gender}}</p>
     </div>
   </div>
   <div class="blogListContainer">

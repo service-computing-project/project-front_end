@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
-import { UserInfoEntity, InfoEntity } from './user.entity';
+import { UserInfoEntity, InfoEntity, UserBlogEntity, BlogDataEntity } from './user.entity';
 import { UserService } from './user.service'
 
 @Component({
@@ -17,7 +17,8 @@ export class UserComponent implements OnInit {
     private readonly userService: UserService
   ) { }
 
-  userData: UserInfoEntity;
+  userInfoData: UserInfoEntity;
+  userBlogData: BlogDataEntity;
   userId: string;
 
   ngOnInit(): void {
@@ -29,11 +30,17 @@ export class UserComponent implements OnInit {
 
   flushData(): void {
     this.userService.getUserInfo(this.userId).subscribe(res =>{
-      this.userData = res;
-      if(this.userData.State != 'success') {
+      this.userInfoData = res;
+      if(this.userInfoData.State != 'success') {
         this.router.navigate(['/404']);
       }
     });
+  }
+
+  getBlogs(): void {
+    // this.userService.getUserBlog(this.userId).subscribe(res => {
+    //   this.userBlogData = res;
+    // });
   }
 
 
