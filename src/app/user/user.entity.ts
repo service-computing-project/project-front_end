@@ -1,13 +1,13 @@
 export interface UserInfoEntity {
-  state: string;
-  id: string;
-  email: string;
-  info: InfoEntity[];
+  State: string;
+  ID: string;
+  Email: string;
+  Info: InfoEntity;
 }
 
 export interface InfoEntity {
-  name: string;
-  avator: string;
-  bio: string;
-  gender: string;
+  Name: string;
+  Avator: string;
+  Bio: string;
+  Gender: string;
 }

@@ -1,6 +1,6 @@
 <div class="rootContainer">
   <div class="navContainer">
-    <nz-layout>
+    <nz-layout *ngIf="showBar()">
       <nz-header>
         <ul nz-menu nzTheme="dark" nzMode="horizontal">
           <li nz-menu-item>nav 1</li>
@@ -13,10 +13,7 @@
           </a>
         </div>
         <div class="user" *ngIf="!isLogin()">
-          <button nz-button (click)="showModal()" class="login"><span>登录/注册</span></button>
-          <nz-modal [(nzVisible)]="isVisible" nzTitle=" " (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-            <p>TEST</p>
-          </nz-modal>
+          <button nz-button (click)="jumpToLogin()" class="login"><span>登录/注册</span></button>
         </div>
       </nz-header>
     </nz-layout>

@@ -11,6 +11,11 @@ import { HomeComponent } from './home/home.component';
 import { ContentComponent } from './content/content.component';
 import { UserComponent } from './user/user.component';
 import { ErrorComponent } from './error/error.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+
+import { AuthenticationService } from './_service/authentication.service';
+import { JwtInterceptor } from './_service/jwt.interceptor';
 
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -95,7 +100,9 @@ const nzSharedModules = [
     HomeComponent,
     ContentComponent,
     UserComponent,
-    ErrorComponent
+    ErrorComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
