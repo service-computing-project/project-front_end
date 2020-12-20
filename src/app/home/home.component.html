@@ -1,1 +1,37 @@
-<p>home works!</p>
+<div class="layout">
+  <div class="layout-content">
+    <div class="inner-content pl-3 pr-3">
+      <div class="pt-2 pl-3">
+        <nz-breadcrumb>
+          <nz-breadcrumb-item>Home</nz-breadcrumb-item>
+          <nz-breadcrumb-item>Timeline</nz-breadcrumb-item>
+        </nz-breadcrumb>
+      </div>
+      <div class="content-card-list">
+        <div *ngFor="let content of publicContents" class="ccard" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+          <div nz-col class="gutter-row" [nzSpan]="24">
+            <div class="inner-box">
+              <div class="ccard-user pt-2 pb-2">
+                <nz-avatar *ngIf="!content.User.Avatar || content.User.Avatar == ''" [nzSize]="'small'" nzText="U" style="background-color: #4b769e;"></nz-avatar>
+                <nz-avatar *ngIf="content.User.Avatar && content.User.Avatar != ''" [nzSize]="'small'" nzIcon="user" [nzSrc]="content.User.Avatar"></nz-avatar>
+                <!-- debug -->
+                <span *ngIf="!content.User.Name" nz-typography nzEllipsis class="ccard-username">
+                  Long Username test: Typography mixins are available for heading styles and for our type scale. They can be used within components or custom CSS. The same styles are also available as utilities. which requires no additional CSS.
+                </span>
+                <!-- end debug -->
+                <span *ngIf="content.User.Name" nz-typography nzEllipsis class="ccard-username">{{ content.User.Name }}</span>
+              </div>
+              <p nz-typography nzEllipsis [nzEllipsisRows]="3">
+                <a [routerLink]="['/content', content.Data.ID]">{{ content.Data.Detail }}</a>
+              </p>
+              <span>{{ content.Data.PublishDate | date:'yyyy-MM-dd HH:mm:ss' }}</span> ·
+              <i nz-icon nzType="like" nzTheme="outline"></i>
+              <span>{{ content.Data.LikeNum }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer> -->
+</div>
