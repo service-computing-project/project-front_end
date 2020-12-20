@@ -31,7 +31,7 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  showBar():{
+  showBar(){
     return true;
   }
 
