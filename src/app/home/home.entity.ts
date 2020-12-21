@@ -8,6 +8,7 @@ export interface PublicRes {
 export interface PublicDataItem {
   Data: ContentEntity;
   User: UserEntity;
+  isLiked: boolean;
 }
 
 export interface UserEntity {

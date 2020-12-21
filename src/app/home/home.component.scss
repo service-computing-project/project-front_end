@@ -11,8 +11,26 @@
   min-height: 0;
 }
 
+.inner-content {
+  width: 80%;
+  margin: 0 auto;
+}
+
 .content-card-list {
   margin: 24px 24px;
+}
+
+.content-card-body:hover {
+  background-color: #faf8f8;
+  cursor: pointer;
+}
+
+.content-card-user-avatar:hover {
+  cursor: pointer;
+}
+
+.content-card-user-name:hover {
+  cursor: pointer;
 }
 
 .ccard {
@@ -39,6 +57,19 @@
 .ccard-title {
   font-size: 20px;
   font-weight: 600;
+}
+
+.like-num {
+  display: inline-block;
+}
+
+.like-icon {
+  width: auto !important;
+}
+
+.like-icon-red {
+  width: auto !important;
+  color: red !important;
 }
 
 .pt-1 {
