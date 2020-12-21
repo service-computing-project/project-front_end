@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthInterceptor } from './_service/auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,8 +16,8 @@ import { ErrorComponent } from './error/error.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
-import { AuthenticationService } from './_service/authentication.service';
-import { JwtInterceptor } from './_service/jwt.interceptor';
+// import { AuthenticationService } from './_service/authentication.service';
+// import { JwtInterceptor } from './_service/jwt.interceptor';
 
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -119,7 +121,12 @@ const nzSharedModules = [
     BrowserAnimationsModule,
     ...nzSharedModules,
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [
+    // { provide: NZ_I18N, useValue: en_US },
+    { provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true, }
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

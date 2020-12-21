@@ -24,10 +24,20 @@
   <div class="blogListContainer">
     <nz-tabset>
       <nz-tab nzTitle="Blog List">
-        Content of Tab Pane 1
+        <div class="blogContainer" *ngIf="userBlogData">
+          <div class="blogCard" *ngFor="let blog of userBlogData">
+
+          </div>
+        </div>
       </nz-tab>
       <nz-tab nzTitle="Notification Center">
-        Content of Tab Pane 2
+        <div class="notificationContainer" *ngIf="userNotificationData">
+          <div class="notificationCard" *ngFor="let notification of userNotificationData.Notification">
+            <p class="targetUser">{{notification.User.Name}}：</p>
+            <p class="content">{{notification.Data.Content}}</p>
+            <p class="createTime">{{notification.Data.CreateTime}}</p>
+          </div>
+        </div>
       </nz-tab>
     </nz-tabset>
   </div>

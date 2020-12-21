@@ -29,6 +29,32 @@ export interface BlogDataEntity {
   Tag: string[];
 }
 
+export interface UserNotificationEntity {
+  State: string;
+  Notification: NotificationEntity[];
+}
+
+export interface NotificationEntity {
+  Data: NotificationDataEntity;
+  User: NotificationUserEntity;
+}
+
+export interface NotificationDataEntity {
+  ID: string;
+  CreateTime: string;
+  Content: string;
+  SourceID: string;
+  TargetID: string;
+  ContentID: string;
+  Type: string;
+}
+
+export interface NotificationUserEntity {
+  Name: string;
+  Avatar: string;
+  Gender: number;
+}
+
 //test
 export interface ReturnData {
   data: string;
