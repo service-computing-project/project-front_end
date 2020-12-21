@@ -15,11 +15,11 @@ export class HomeService {
   ) { }
 
   public getPublicDataByPage(pageid: number, pagesz: number): Observable<PublicRes> {
-    // let param: PublicReq = {
-    //   page: pageid,
-    //   per_page: pagesz,
-    // }
-    console.log(this.publicUrl);
+    let param: PublicReq = {
+      page: pageid,
+      per_page: pagesz,
+    }
+    console.log('public get req', this.publicUrl, 'param', param);
     return this.http.get<PublicRes>(this.publicUrl, {
       params: {
         page: `${pageid}`,
@@ -27,4 +27,8 @@ export class HomeService {
       }
     })
   }
+
+  // public sendNewPost(detail: string) {
+  //   /api/content/text
+  // }
 }

@@ -7,6 +7,28 @@
           <nz-breadcrumb-item>Timeline</nz-breadcrumb-item>
         </nz-breadcrumb>
       </div>
+      <div class="add-post">
+        <button nz-button nzType="primary" nzSize="large" nzShape="circle"><i nz-icon nzType="form" nzTheme="outline"></i></button>
+      </div>
+      <!-- <div>
+        <nz-modal
+          [(nzVisible)]="isEditVisible"
+          nzTitle="编辑"
+          nzOkText="确认"
+          nzCancelText="取消"
+          (nzOnCancel)="handleEditCancel()"
+          (nzOnOk)="handleEditOk()"
+          [nzOkLoading]="isEditOkLoading"
+        >
+          <form nz-form [formGroup]="form" nzLayout="vertical">
+            <nz-form-item>
+              <nz-form-control>
+                  <textarea rows="4" formControlName="content" nz-input></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+        </nz-modal>
+      </div> -->
       <div class="pt-2 pb-3">
         <div *ngFor="let content of publicContents; let i=index" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
           <div nz-col class="gutter-row content-card" [nzSpan]="24">
@@ -56,6 +78,14 @@
             </ng-template>
           </div>
         </div>
+      </div>
+      <div class="page-button">
+        <nz-button-group nzSize="large">
+          <button *ngIf="currentPageId == 1" nz-button nzType="default" disabled><i nz-icon nzType="left"></i></button>
+          <button *ngIf="currentPageId != 1" nz-button nzType="default" (click)="getPage(currentPageId - 1, pageSize)"><i nz-icon nzType="left"></i></button>
+          <button *ngIf="isLastPage" nz-button nzType="default" disabled><i nz-icon nzType="right"></i></button>
+          <button *ngIf="!isLastPage" nz-button nzType="default" (click)="getPage(currentPageId + 1, pageSize)"><i nz-icon nzType="right"></i></button>
+        </nz-button-group>
       </div>
       <!-- <div class="content-card-list">
         <div *ngFor="let content of publicContents" class="ccard" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
