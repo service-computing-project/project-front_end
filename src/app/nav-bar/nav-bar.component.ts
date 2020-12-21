@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Params, Router } from "@angular/router";
-
+import { NavBarService } from './nav-bar.service';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -17,18 +18,24 @@ export class NavBarComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private location: Location) {
+    private location: Location,
+    private readonly navBarService: NavBarService,
+    private readonly userService: UserService) {
     }
 
   ngOnInit(): void {
   }
 
   isLogin(){
-    return this.isLoginStatus;
+    return localStorage.getItem('currentUser');
   }
 
   jumpToUser(): void {
-    this.router.navigate(['/user/'+this.userId]);
+    this.userService.getUserInfo("self").subscribe(res =>{
+      console.log(res);
+      this.userId = res.ID;
+    });
+    // this.router.navigate(['/user/'+this.userId]);
   }
 
   jumpToLogin(): void {
@@ -37,6 +44,14 @@ export class NavBarComponent implements OnInit {
 
   showBar(){
     return !(this.location.isCurrentPathEqualTo('/login') || this.location.isCurrentPathEqualTo('/register'));
+  }
+
+  logOut() {
+    this.navBarService.postLogout().subscribe(res => {
+      console.log(res);
+    });
+    localStorage.removeItem('currentUser');
+    this.router.navigate(['/home']);
   }
 
 }

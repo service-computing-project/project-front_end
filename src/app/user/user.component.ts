@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
 import { UserInfoEntity, InfoEntity, UserBlogEntity, BlogDataEntity } from './user.entity';
-import { UserService } from './user.service'
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-user',
@@ -26,6 +26,12 @@ export class UserComponent implements OnInit {
       this.userId = params.get('id');
     });
     this.flushData();
+    var currentUser = localStorage.getItem('currentUser');
+    if(currentUser) {
+      console.log(currentUser);
+      console.log(currentUser);
+    }
+    // this.getBlogs();
   }
 
   flushData(): void {
@@ -37,11 +43,15 @@ export class UserComponent implements OnInit {
     });
   }
 
-  getBlogs(): void {
-    // this.userService.getUserBlog(this.userId).subscribe(res => {
-    //   this.userBlogData = res;
-    // });
+  isBoy() {
+    return this.userInfoData.Info.Gender == 0;
   }
+
+  // getBlogs(): void {
+  //   this.userService.getUserBlog(this.userId).subscribe(res => {
+  //     console.log(res);
+  //   });
+  // }
 
 
 

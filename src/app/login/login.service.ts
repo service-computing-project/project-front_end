@@ -7,18 +7,17 @@ import { apiUrl } from '../app.config';
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterService {
+export class LoginService {
 
-  registerReqUrl = apiUrl + "api/user/register";
+  loginReqUrl = apiUrl + "api/user/login";
 
   constructor(private http: HttpClient) { }
 
-  public postRegister(email: string, usr: string, pass: string): Observable<any> {
+  public postLogin(usr: string, pass: string): Observable<any> {
     let postData = {
-      email: email,
       username: usr,
       password: pass
     };
-    return this.http.post<any>(this.registerReqUrl, postData);
+    return this.http.post<any>(this.loginReqUrl, postData);
   }
 }

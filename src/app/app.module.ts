@@ -54,6 +54,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 
@@ -94,7 +95,8 @@ const nzSharedModules = [
   NzLayoutModule,
   NzBreadCrumbModule,
   NzTypographyModule,
-  NzSpaceModule
+  NzSpaceModule,
+  NzTabsModule
 ];
 
 @NgModule({

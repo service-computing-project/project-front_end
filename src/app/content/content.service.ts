@@ -32,7 +32,7 @@ export class ContentService {
   }
 
   public deletePost(contentID: string) {
-    let endPoints = 'api/content' + contentID;
+    let endPoints = 'api/content/' + contentID;
     return this.http.delete(this.reqUrl + endPoints).subscribe(data => {
       console.log(data);
     });

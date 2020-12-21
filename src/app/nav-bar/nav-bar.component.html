@@ -3,14 +3,13 @@
     <nz-layout>
       <nz-header>
         <a routerLinkActive="active" routerLink="/"><img src="https://cdn.jsdelivr.net/gh/sherryjw/StaticResource@master/image/logo-03.png" height="50"></a>
-        <!-- <ul nz-menu nzTheme="dark" nzMode="horizontal">
-          <li nz-menu-item>nav 1</li>
-          <li nz-menu-item>nav 2</li>
-        </ul> -->
         <div class="user" *ngIf="isLogin()">
           <img src="">
           <a (click)="jumpToUser()" routerLinkActive="active">
             <span>这里是一个用户头像</span>
+          </a>
+          <a (click)="logOut()" routerLinkActive="active">
+            <span>退出登录</span>
           </a>
         </div>
         <div class="user" *ngIf="!isLogin() && showBar()">

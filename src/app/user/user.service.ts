@@ -12,7 +12,7 @@ import { apiUrl } from '../app.config';
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  private userBaseUrl = 'api/user/info/';
+  private userBaseUrl = apiUrl + 'api/user/info/';
   private blogBaseUrl = 'api/content/texts/';
 
   public getUserInfo(id: string): Observable<UserInfoEntity> {
@@ -21,8 +21,8 @@ export class UserService {
     return this.http.get<UserInfoEntity>(userUrl);
   }
 
-  // public getUserBlog(id: string): Observable<UserBlogEntity> {
-  //   let blogUrl = this.blogBaseUrl + id;
-  //   return this.http.get<UserBlogEntity>(blogUrl, {page: 1, per_page: 5});
-  // }
+  public getUserBlog(id: string): Observable<UserBlogEntity> {
+    let blogUrl = this.blogBaseUrl + id;
+    return this.http.get<UserBlogEntity>(blogUrl);
+  }
 }

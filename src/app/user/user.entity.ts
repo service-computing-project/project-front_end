@@ -7,9 +7,9 @@ export interface UserInfoEntity {
 
 export interface InfoEntity {
   Name: string;
-  Avator: string;
+  Avatar: string;
   Bio: string;
-  Gender: string;
+  Gender: number;
 }
 
 export interface UserBlogEntity {

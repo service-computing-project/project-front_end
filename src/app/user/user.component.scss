@@ -7,7 +7,22 @@
   grid-column-gap: 16px;
   .userInfoContainer {
     background-color: #fff;
-    grid-area: userInfoContainer
+    grid-area: userInfoContainer;
+    padding: 50px;
+    .avatar {
+      width: 100px;
+      margin: 0 auto;
+    }
+    .userInfo {
+      .name {
+        margin-top: 20px;
+        font-size: 24px;
+        font-weight: 600;
+      }
+      .gender, .id, .email {
+        color: #828282;
+      }
+    }
   }
   .blogListContainer {
     background-color: #fff;

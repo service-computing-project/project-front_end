@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../_service/authentication.service';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 import { apiUrl } from '../app.config';
-import { ReturnData } from '../user/user.entity'
-import { UserService } from '../user/user.service'
+import { LoginService } from '../login/login.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,44 +18,72 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private http: HttpClient,
-    private readonly userService: UserService) { }
+    private readonly loginService: LoginService,
+    private readonly userService: UserService,
+    private notification: NzNotificationService) { }
 
   model: any = {};
   loading = false;
-  // returnUrl: string;
+  wrongState: string;
 
   ngOnInit(): void {
-    // reset login status
-    this.authenticationService.logout();
-
-    // get return url from route parameters or default to '/'
-    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    localStorage.removeItem('currentUser');
   }
 
   login() {
+    localStorage.removeItem('currentUser');
     this.loading = true;
-    this.authenticationService.login(this.model.username, this.model.password)
-      .subscribe(
-        data => {
+    this.loginService.postLogin(this.model.username, this.model.password).subscribe(
+      data => {
+        console.log(data);
+        if(data.State == 'success') {
+          console.log(JSON.stringify(this.model));
+          localStorage.setItem('currentUser', this.model.username);//JSON.stringify(this.model)
+          // var currentUserInfo;
+          // this.userService.getUserInfo("self").subscribe(res =>{
+          //   currentUserInfo = res;
+          // });
+          // console.log(currentUserInfo);
+
+          this.createSuccessNotification();
           this.router.navigate(['/home']);
-          // this.router.navigate([this.returnUrl]);
-        },
-        error => {
-          console.log(error);
+        }
+        else {
+          if (data.State == 'username_notexist') {
+            this.wrongState = 'Username Not Exist!';
+          }
+          else if (data.State == 'password_error') {
+            this.wrongState = 'Wrong Password!';
+          }
+          this.createFailNotification();
           this.loading = false;
-        });
+        }
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+      }
+    );
   }
 
-  testLogin() {
-    // this.userService.getUserInfo("5fd8e8a5c93c73399fa8d448").subscribe(res =>{
-    //   this.userData = res;
-    //   if(this.userData.State != 'success') {
-    //     this.router.navigate(['/404']);
-    //   }
-    // });
-    this.http.post<ReturnData>(apiUrl + 'api/user/login', { username: "test_reg", password: "123456" }).subscribe(res=>{
-      console.log(res);
-    });
+  createSuccessNotification(): void {
+    this.notification
+      .blank(
+        'Notification',
+        'Login Successfully!'
+      )
+      .onClick.subscribe(() => {
+      });
+  }
+
+  createFailNotification(): void {
+    this.notification
+      .blank(
+        'Notification',
+        this.wrongState
+      )
+      .onClick.subscribe(() => {
+      });
   }
 
 }

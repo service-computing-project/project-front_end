@@ -12,7 +12,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   // login(username: string, password: string) {
-  //   return this.http.post<any>(apiUrl + 'api/user/login', { username: username, password: password })
+  //   return this.http.post<any>(apiUrl + 'api/user/login', { username: username, password: password }, {headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})})
   //     .map(user => {
   //       // login successful if there's a jwt token in the response
   //       if (user && user.token) {
