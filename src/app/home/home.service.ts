@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { PublicRes, ContentDetailRes } from './home.entity';
+import { PublicRes, PublicReq } from './home.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,17 @@ export class HomeService {
     private http: HttpClient
   ) { }
 
-  public getAllPublicData(): Observable<PublicRes> {
+  public getPublicDataByPage(pageid: number, pagesz: number): Observable<PublicRes> {
+    // let param: PublicReq = {
+    //   page: pageid,
+    //   per_page: pagesz,
+    // }
     console.log(this.publicUrl);
-    return this.http.get<PublicRes>(this.publicUrl + '?page=1&per_page=2');
+    return this.http.get<PublicRes>(this.publicUrl, {
+      params: {
+        page: `${pageid}`,
+        per_page: `${pagesz}`,
+      }
+    })
   }
 }

@@ -1,9 +1,40 @@
+.layout {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.layout-content {
+  flex: auto;
+  min-height: 0;
+}
+
+.inner-content {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.content-card-user-avatar:hover {
+  cursor: pointer;
+}
+
+.content-card-user-name:hover {
+  cursor: pointer;
+}
+
 .like-num {
   display: inline-block;
 }
 
 .like-icon {
   width: auto !important;
+}
+
+.like-icon-red {
+  width: auto !important;
+  color: red !important;
 }
 
 .pt-1 {

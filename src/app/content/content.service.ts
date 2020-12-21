@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { ContentDetailRes, UpdatePostReq,UpdatePostRes } from './content.entity'
+import { ContentDetailRes, UpdatePostReq, UpdatePostRes, LikePostRes, DeletePostRes, LikeGetRes } from './content.entity'
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,8 @@ import { ContentDetailRes, UpdatePostReq,UpdatePostRes } from './content.entity'
 export class ContentService {
   private reqUrl = 'http://47.103.210.109:8080/';
   private contentDetailUrl = this.reqUrl + 'api/content/detail/';
-  private contentUpdateUrl = '/api/content/update';
+  private contentUpdateUrl = this.reqUrl + 'api/content/update';
+  private reqHeader = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
 
   constructor(
     private http: HttpClient
@@ -28,13 +29,31 @@ export class ContentService {
       tags: p_tags,
       isPublic: p_isPublic
     };
+    // console.log('post data', postData);
     return this.http.post<UpdatePostRes>(this.contentUpdateUrl, postData);
   }
 
   public deletePost(contentID: string) {
     let endPoints = 'api/content/' + contentID;
-    return this.http.delete(this.reqUrl + endPoints).subscribe(data => {
-      console.log(data);
-    });
+    return this.http.delete<DeletePostRes>(this.reqUrl + endPoints, {headers: this.reqHeader});
+  }
+
+  public likePost(contentID: string) {
+    let likeReqUrl = `${this.reqUrl}api/like/${contentID}`;
+    // let likeReqUrl = `${this.reqUrl}api/like/5c3765bd7a2bdd000111e107`;
+    console.log('like request url', likeReqUrl);
+    return this.http.post<LikePostRes>(likeReqUrl, {});
+  }
+
+  public unlikePost(contentID: string) {
+    let unlikeReqUrl = `${this.reqUrl}api/like/${contentID}`;
+    console.log('unlike request url', unlikeReqUrl);
+    return this.http.patch<LikePostRes>(unlikeReqUrl, {});
+  }
+
+  public getAllLikeUsers(contentID: string) {
+    let url = `${this.reqUrl}api/like/${contentID}`;
+    console.log('get likes url', url);
+    return this.http.get<LikeGetRes>(url);
   }
 }
