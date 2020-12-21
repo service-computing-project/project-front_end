@@ -3,6 +3,7 @@
     "target": "http://47.103.210.109:8080",
     "secure": true,
     "changeOrigin": true,
+    "cookieDomainRewrite": "",
     "ws": true,
     "pathRewrite": {
       "^/": ""

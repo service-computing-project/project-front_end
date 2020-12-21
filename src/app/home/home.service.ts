@@ -16,6 +16,6 @@ export class HomeService {
 
   public getAllPublicData(): Observable<PublicRes> {
     console.log(this.publicUrl);
-    return this.http.get<PublicRes>(this.publicUrl);
+    return this.http.get<PublicRes>(this.publicUrl + '?page=1&per_page=2');
   }
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from  'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { CookieService } from "ngx-cookie-service";
 import { apiUrl } from '../app.config';
 
 @Injectable({
@@ -11,13 +12,14 @@ export class LoginService {
 
   loginReqUrl = apiUrl + "api/user/login";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   public postLogin(usr: string, pass: string): Observable<any> {
     let postData = {
       username: usr,
       password: pass
     };
+    // this.cookieService.set("userName", usr, new Date(new Date().getTime()));
     return this.http.post<any>(this.loginReqUrl, postData);
   }
 }
