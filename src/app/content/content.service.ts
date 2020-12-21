@@ -30,7 +30,7 @@ export class ContentService {
       isPublic: p_isPublic
     };
     // console.log('post data', postData);
-    return this.http.post<UpdatePostRes>(this.contentUpdateUrl, postData, {headers: this.reqHeader});
+    return this.http.post<UpdatePostRes>(this.contentUpdateUrl, postData);
   }
 
   public deletePost(contentID: string) {
@@ -42,13 +42,13 @@ export class ContentService {
     let likeReqUrl = `${this.reqUrl}api/like/${contentID}`;
     // let likeReqUrl = `${this.reqUrl}api/like/5c3765bd7a2bdd000111e107`;
     console.log('like request url', likeReqUrl);
-    return this.http.post<LikePostRes>(likeReqUrl, {}, {headers: this.reqHeader});
+    return this.http.post<LikePostRes>(likeReqUrl, {});
   }
 
   public unlikePost(contentID: string) {
     let unlikeReqUrl = `${this.reqUrl}api/like/${contentID}`;
     console.log('unlike request url', unlikeReqUrl);
-    return this.http.patch<LikePostRes>(unlikeReqUrl, {}, {headers: this.reqHeader});
+    return this.http.patch<LikePostRes>(unlikeReqUrl, {});
   }
 
   public getAllLikeUsers(contentID: string) {

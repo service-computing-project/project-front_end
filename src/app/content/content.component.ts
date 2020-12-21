@@ -124,11 +124,11 @@ export class ContentComponent implements OnInit {
       .likePost(this.contentId)
       .subscribe(data => {
         console.log('like response', data);
-        if (data.State === 'success') {
-          this.isLiked = true;
-        }
+        // if (data.State === 'success') {
+        //   this.isLiked = true;
+        // }
         // debug
-        // this.isLiked = true;
+        this.isLiked = true;
       });
   }
 
