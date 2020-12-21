@@ -5,6 +5,12 @@ export interface PublicReq {
   per_page:	number; //	页大小
 }
 
+export interface NewPostReq {
+  detail:	string;     // 正文
+  tags:	string[];  	  // 标签
+  isPublic:	boolean;  // 是否公开
+}
+
 export interface PublicRes {
   State: string;
   Data: PublicDataItem[];

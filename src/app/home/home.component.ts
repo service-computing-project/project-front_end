@@ -22,8 +22,14 @@ export class HomeComponent implements OnInit {
   constructor(
     private readonly homeService: HomeService,
     private readonly contentService: ContentService,
-    private notification: NzNotificationService
-  ) { }
+    private notification: NzNotificationService,
+    private formBuilder: FormBuilder,
+  ) {
+    this.form = this.formBuilder.group({
+      content: [null, [Validators.maxLength(140)]],
+      tags: [null]
+    });
+  }
 
   ngOnInit(): void {
     this.currentPageId = 1;
@@ -103,28 +109,32 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  // handleEditOk(): void {
-  //   let form = this.form.value;
-  //   this.isEditOkLoading = true;
-  //   console.log('form before update post', this.form.value);
-  //   this.contentService.
-  //     updatePost(this.contentId, form.content, this.contentDetail.Tag, this.contentDetail.Public)
-  //     .subscribe(data => {
-  //       console.log('update post response', data);
-  //       if (data.State === 'success') {
-  //         this.contentDetail.Detail = form.content;
-  //       }
-  //     })
-  //   setTimeout(() => {
-  //     this.isEditVisible = false;
-  //     this.isEditOkLoading = false;
-  //     // this.flushData();
-  //   }, 100);
-  // }
+  showEditModal(): void {
+    this.isEditVisible = true;
+  }
 
-  // handleEditCancel(): void {
-  //   this.isEditVisible = false;
-  // }
+  handleEditOk(): void {
+    let form = this.form.value;
+    this.isEditOkLoading = true;
+    console.log('form before update post', form);
+    // this.contentService.
+    //   updatePost(this.contentId, form.content, this.contentDetail.Tag, this.contentDetail.Public)
+    //   .subscribe(data => {
+    //     console.log('update post response', data);
+    //     if (data.State === 'success') {
+    //       this.contentDetail.Detail = form.content;
+    //     }
+    //   })
+    // setTimeout(() => {
+    //   this.isEditVisible = false;
+    //   this.isEditOkLoading = false;
+    //   // this.flushData();
+    // }, 100);
+  }
+
+  handleEditCancel(): void {
+    this.isEditVisible = false;
+  }
 
   likeContent(contentID: string, itemIndex: number) {
     this.contentService
