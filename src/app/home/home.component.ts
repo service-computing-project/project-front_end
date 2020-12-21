@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { HomeService } from './home.service';
 import { PublicDataItem } from './home.entity';
 import { ContentService } from '../content/content.service';
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private readonly homeService: HomeService,
-    private readonly contentService: ContentService
+    private readonly contentService: ContentService,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -70,19 +72,34 @@ export class HomeComponent implements OnInit {
   isLikedByUser(contentId: string, index: number) {
     this.contentService
       .getAllLikeUsers(contentId)
-      .subscribe(data => {
-        console.log('get like response', data);
-        console.log('currentUser', localStorage.getItem('currentUser'));
-        if (data.State === 'success') {
-          for (let i = 0; i < data.Data.length; i++) {
-            if (data.Data[i] === localStorage.getItem('currentUser')) {
-              this.publicContents[index].isLiked = true;
+      .subscribe(
+        data => {
+          console.log('get like response', data);
+          console.log('currentUser', localStorage.getItem('currentUser'));
+          if (data.State === 'success') {
+            for (let i = 0; i < data.Data.length; i++) {
+              if (data.Data[i] === localStorage.getItem('currentUser')) {
+                this.publicContents[index].isLiked = true;
+              }
             }
           }
+          else {
+            console.log('get like response error state:', data.State);
+          }
+        },
+        error => {
+          console.log(error);
         }
-        else {
-          console.log('get like response error:', data.State);
-        }
+      );
+  }
+
+  createNoLoginNotification(): void {
+    this.notification
+      .blank(
+        '提示',
+        '请在登陆后执行操作'
+      )
+      .onClick.subscribe(() => {
       });
   }
 
@@ -112,24 +129,46 @@ export class HomeComponent implements OnInit {
   likeContent(contentID: string, itemIndex: number) {
     this.contentService
       .likePost(contentID)
-      .subscribe(data => {
-        console.log('like response', data);
-        if (data.State === 'success') {
-          this.publicContents[itemIndex].isLiked = true;
+      .subscribe(
+        data => {
+          console.log('like response', data);
+          if (data.State === 'success') {
+            this.publicContents[itemIndex].isLiked = true;
+            this.publicContents[itemIndex].Data.LikeNum ++;
+          }
+          else if (data.State === 'not_login') {
+            this.createNoLoginNotification();
+          }
+          else {
+            console.log('post like response error state:', data.State);
+          }
+        },
+        error => {
+          console.log(error);
         }
-        // debug
-        // this.publicContents[itemIndex].isLiked = true;
-      });
+      );
   }
 
   unlikeContent(contentID: string, itemIndex: number) {
     this.contentService
       .unlikePost(contentID)
-      .subscribe(data => {
-        console.log('unlike response', data);
-        if (data.State === 'success') {
-          this.publicContents[itemIndex].isLiked = false;
+      .subscribe(
+        data => {
+          console.log('unlike response', data);
+          if (data.State === 'success') {
+            this.publicContents[itemIndex].isLiked = false;
+            this.publicContents[itemIndex].Data.LikeNum --;
+          }
+          else if (data.State === 'not_login') {
+            this.createNoLoginNotification();
+          }
+          else {
+            console.log('patch like response error state:', data.State);
+          }
+        },
+        error => {
+          console.log(error);
         }
-      })
+      )
   }
 }

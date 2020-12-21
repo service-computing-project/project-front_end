@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router} from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { UserEntity } from '../home/home.entity';
 import { ContentEntity } from './content.entity';
 import { ContentService } from './content.service';
@@ -29,7 +30,8 @@ export class ContentComponent implements OnInit {
     private router: Router,
     private location: Location,
     private nzModal: NzModalService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private notification: NzNotificationService
   ) {
     this.form = this.formBuilder.group({
       content: [null, [Validators.maxLength(140)]]
@@ -59,6 +61,16 @@ export class ContentComponent implements OnInit {
         // debug
         this.contentDetail.Tag.push('test tag2');
       })
+  }
+
+  createNoLoginNotification(): void {
+    this.notification
+      .blank(
+        '提示',
+        '请在登陆后执行操作'
+      )
+      .onClick.subscribe(() => {
+      });
   }
 
   showEditModal(): void {
@@ -92,55 +104,90 @@ export class ContentComponent implements OnInit {
   isLikedByUser() {
     this.contentService
       .getAllLikeUsers(this.contentId)
-      .subscribe(data => {
-        console.log('get like response', data);
-        console.log('currentUser', localStorage.getItem('currentUser'));
-        if (data.State === 'success') {
-          for (let i = 0; i < data.Data.length; i++) {
-            if (data.Data[i] === localStorage.getItem('currentUser')) {
-              this.isLiked = true;
+      .subscribe(
+        data => {
+          console.log('get like response', data);
+          console.log('currentUser', localStorage.getItem('currentUser'));
+          if (data.State === 'success') {
+            for (let i = 0; i < data.Data.length; i++) {
+              if (data.Data[i] === localStorage.getItem('currentUser')) {
+                this.isLiked = true;
+              }
             }
           }
+          else {
+            console.log('get like response error state:', data.State);
+          }
+        },
+        error => {
+          console.log(error);
         }
-        else {
-          console.log('get like response error:', data.State);
-        }
-      });
+      );
   }
 
   deleteContent() {
     this.contentService
       .deletePost(this.contentId)
-      .subscribe(data => {
-        console.log('delete response', data);
-        if (data.State === 'success') {
-          this.router.navigateByUrl('home');
+      .subscribe(
+        data => {
+          console.log('delete content response', data);
+          if (data.State === 'success') {
+            this.router.navigateByUrl('home');
+          }
+          else {
+            console.log('delete content response error state:', data.State);
+          }
+        },
+        error => {
+          console.log(error);
         }
-      });
+      );
   }
 
   likeContent() {
     this.contentService
       .likePost(this.contentId)
-      .subscribe(data => {
-        console.log('like response', data);
-        // if (data.State === 'success') {
-        //   this.isLiked = true;
-        // }
-        // debug
-        this.isLiked = true;
-      });
+      .subscribe(
+        data => {
+          console.log('like response', data);
+          if (data.State === 'success') {
+            this.isLiked = true;
+            this.contentDetail.LikeNum ++;
+          }
+          else if (data.State === 'not_login') {
+            this.createNoLoginNotification();
+          }
+          else {
+            console.log('like response error state', data.State);
+          }
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   unlikeContent() {
     this.contentService
       .unlikePost(this.contentId)
-      .subscribe(data => {
-        console.log('unlike response', data);
-        if (data.State === 'success') {
-          this.isLiked = false;
+      .subscribe(
+        data => {
+          console.log('unlike response', data);
+          if (data.State === 'success') {
+            this.isLiked = false;
+            this.contentDetail.LikeNum --;
+          }
+          else if (data.State === 'not_login') {
+            this.createNoLoginNotification();
+          }
+          else {
+            console.log('unlike response error state', data.State);
+          }
+        },
+        error => {
+          console.log(error);
         }
-      })
+      )
   }
 
   addHashTag(tag: string): string {

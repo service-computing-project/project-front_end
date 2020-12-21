@@ -8,7 +8,7 @@
           <a (click)="jumpToUser()" routerLinkActive="active">
             <span>这里是一个用户头像</span>
           </a>
-          <a (click)="logOut()" routerLinkActive="active">
+          <a (click)="logOut()" routerLinkActive="active" [routerLink]="['home']">
             <span>退出登录</span>
           </a>
         </div>
