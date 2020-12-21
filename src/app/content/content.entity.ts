@@ -27,3 +27,13 @@ export interface UpdatePostRes {
   State: string;
   Data: [];
 }
+
+export interface LikePostRes {
+  State: string;
+  Data: [];
+}
+
+export interface DeletePostRes {
+  State: string;
+  Data: [];
+}

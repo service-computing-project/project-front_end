@@ -26,8 +26,14 @@
           <i nz-icon nzType="setting"></i>
         </ng-template>
         <ng-template #actionLike>
-          <i class="like-icon" nz-icon nzType="like" nzTheme="outline"></i>
-          <span class="like-num pl-1">{{contentDetail.LikeNum}}</span>
+          <div *ngIf="isLiked" [class.like-icon-red]="true" (click)="unlikeContent()">
+            <i class="like-icon" nz-icon nzType="like" nzTheme="outline"></i>
+            <span class="like-num pl-1">{{contentDetail.LikeNum}}</span>
+          </div>
+          <div *ngIf="!isLiked" (click)="likeContent()">
+            <i class="like-icon" nz-icon nzType="like" nzTheme="outline"></i>
+            <span class="like-num pl-1">{{contentDetail.LikeNum}}</span>
+          </div>
         </ng-template>
         <ng-template #actionEdit>
           <i nz-icon nzType="edit" nzTheme="outline" (click)="showEditModal()"></i>
@@ -41,6 +47,8 @@
         <nz-modal
           [(nzVisible)]="isEditVisible"
           nzTitle="编辑"
+          nzOkText="确认"
+          nzCancelText="取消"
           (nzOnCancel)="handleEditCancel()"
           (nzOnOk)="handleEditOk()"
           [nzOkLoading]="isEditOkLoading"

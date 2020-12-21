@@ -17,8 +17,9 @@ export class ContentComponent implements OnInit {
   contentId: string;
   contentDetail: ContentEntity;
   authorData: UserEntity;
-  isEditVisible = false;
-  isEditOkLoading = false;
+  isEditVisible: boolean;
+  isEditOkLoading: boolean;
+  isLiked: boolean;
   form: FormGroup;
 
   constructor(
@@ -34,6 +35,10 @@ export class ContentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isEditVisible = false;
+    this.isEditOkLoading = false;
+    this.isLiked = false;
+
     this.route.paramMap.subscribe(params => {
       this.contentId = params.get('id');
       console.log('content id', this.contentId);
@@ -59,12 +64,16 @@ export class ContentComponent implements OnInit {
   }
 
   handleEditOk(): void {
+    let form = this.form.value;
     this.isEditOkLoading = true;
     console.log('form before update post', this.form.value);
     this.contentService.
-      updatePost(this.contentId, this.form.value.content, this.contentDetail.Tag, this.contentDetail.Public)
+      updatePost(this.contentId, form.content, this.contentDetail.Tag, this.contentDetail.Public)
       .subscribe(data => {
         console.log('update post response', data);
+        if (data.State === 'success') {
+          this.contentDetail.Detail = form.content;
+        }
       })
     setTimeout(() => {
       this.isEditVisible = false;
@@ -78,7 +87,38 @@ export class ContentComponent implements OnInit {
   }
 
   deleteContent() {
-    this.contentService.deletePost(this.contentId);
+    this.contentService
+      .deletePost(this.contentId)
+      .subscribe(data => {
+        console.log('delete response', data);
+        if (data.State === 'success') {
+          this.router.navigateByUrl('home');
+        }
+      });
+  }
+
+  likeContent() {
+    this.contentService
+      .likePost(this.contentId)
+      .subscribe(data => {
+        console.log('like response', data);
+        if (data.State === 'success') {
+          this.isLiked = true;
+        }
+        // debug
+        // this.isLiked = true;
+      });
+  }
+
+  unlikeContent() {
+    this.contentService
+      .unlikePost(this.contentId)
+      .subscribe(data => {
+        console.log('unlike response', data);
+        if (data.State === 'success') {
+          this.isLiked = false;
+        }
+      })
   }
 
   addHashTag(tag: string): string {
@@ -99,7 +139,6 @@ export class ContentComponent implements OnInit {
       nzOnOk: () => {
         console.log('Confirm delete');
         this.deleteContent();
-        this.router.navigateByUrl('home');
       },
       nzCancelText: '取消',
       nzOnCancel: () => console.log('Cancel delete')
