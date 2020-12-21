@@ -7,10 +7,10 @@
           <nz-breadcrumb-item>Timeline</nz-breadcrumb-item>
         </nz-breadcrumb>
       </div>
-      <div class="add-post">
-        <button nz-button nzType="primary" nzSize="large" nzShape="circle"><i nz-icon nzType="form" nzTheme="outline"></i></button>
+      <div class="add-content-bnt">
+        <button nz-button nzType="primary" nzSize="large" nzShape="circle" (click)="showEditModal()"><i nz-icon nzType="form" nzTheme="outline"></i></button>
       </div>
-      <!-- <div>
+      <div>
         <nz-modal
           [(nzVisible)]="isEditVisible"
           nzTitle="编辑"
@@ -26,9 +26,23 @@
                   <textarea rows="4" formControlName="content" nz-input></textarea>
               </nz-form-control>
             </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <input
+                  formControlName="tags"
+                  #inputElement
+                  nz-input
+                  nz-tooltip
+                  nzTooltipTrigger="focus"
+                  nzTooltipPlacement="topLeft"
+                  nzTooltipTitle="每个标签前用'#'分隔，例：#tag1#tag2#tag3"
+                  placeholder="每个标签前用'#'分隔，例：#tag1#tag2#tag3"
+                />
+              </nz-form-control>
+            </nz-form-item>
           </form>
         </nz-modal>
-      </div> -->
+      </div>
       <div class="pt-2 pb-3">
         <div *ngFor="let content of publicContents; let i=index" nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
           <div nz-col class="gutter-row content-card" [nzSpan]="24">
