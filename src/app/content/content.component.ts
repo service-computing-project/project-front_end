@@ -23,6 +23,7 @@ export class ContentComponent implements OnInit {
   isEditOkLoading: boolean;
   isLiked: boolean;
   form: FormGroup;
+  isEditable: boolean;
 
   constructor(
     private readonly contentService: ContentService,
@@ -42,12 +43,16 @@ export class ContentComponent implements OnInit {
     this.isEditVisible = false;
     this.isEditOkLoading = false;
     this.isLiked = false;
+    this.isEditable = false;
 
     this.route.paramMap.subscribe(params => {
       this.contentId = params.get('id');
       console.log('content id', this.contentId);
       this.flushData();
       this.isLikedByUser();
+      if (this.authorData.Name === localStorage.getItem('currentUser')) {
+        this.isEditable = true;
+      }
     });
   }
 

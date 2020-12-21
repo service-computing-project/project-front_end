@@ -2,7 +2,7 @@
   <div class="layout-content">
     <div class="inner-content">
       <div class="content-card pt-3">
-        <nz-card [nzActions]="[actionGoBack, actionLike, actionEdit, actionDelete]">
+        <nz-card [nzActions]="isEditable ? [actionGoBack, actionLike, actionEdit, actionDelete] : [actionGoBack, actionLike]">
           <nz-card-meta [nzTitle]="titleTemplate" [nzDescription]="contentDetail.PublishDate | date:'yyyy-MM-dd HH:mm:ss'" [nzAvatar]="avatarTemplate"></nz-card-meta>
           <p class="pt-2">
             {{ contentDetail.Detail }}
