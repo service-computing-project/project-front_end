@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { ContentDetailRes, UpdatePostReq, UpdatePostRes, LikePostRes, DeletePostRes } from './content.entity'
+import { ContentDetailRes, UpdatePostReq, UpdatePostRes, LikePostRes, DeletePostRes, LikeGetRes } from './content.entity'
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +49,11 @@ export class ContentService {
     let unlikeReqUrl = `${this.reqUrl}api/like/${contentID}`;
     console.log('unlike request url', unlikeReqUrl);
     return this.http.patch<LikePostRes>(unlikeReqUrl, {}, {headers: this.reqHeader});
+  }
+
+  public getAllLikeUsers(contentID: string) {
+    let url = `${this.reqUrl}api/like/${contentID}`;
+    console.log('get likes url', url);
+    return this.http.get<LikeGetRes>(url);
   }
 }

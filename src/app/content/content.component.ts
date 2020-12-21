@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router} from '@angular/router';
+import { Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserEntity } from '../home/home.entity';
 import { ContentEntity } from './content.entity';
@@ -26,6 +27,7 @@ export class ContentComponent implements OnInit {
     private readonly contentService: ContentService,
     private route: ActivatedRoute,
     private router: Router,
+    private location: Location,
     private nzModal: NzModalService,
     private formBuilder: FormBuilder
   ) {
@@ -43,6 +45,7 @@ export class ContentComponent implements OnInit {
       this.contentId = params.get('id');
       console.log('content id', this.contentId);
       this.flushData();
+      this.isLikedByUser();
     });
   }
 
@@ -84,6 +87,25 @@ export class ContentComponent implements OnInit {
 
   handleEditCancel(): void {
     this.isEditVisible = false;
+  }
+
+  isLikedByUser() {
+    this.contentService
+      .getAllLikeUsers(this.contentId)
+      .subscribe(data => {
+        console.log('get like response', data);
+        console.log('currentUser', localStorage.getItem('currentUser'));
+        if (data.State === 'success') {
+          for (let i = 0; i < data.Data.length; i++) {
+            if (data.Data[i] === localStorage.getItem('currentUser')) {
+              this.isLiked = true;
+            }
+          }
+        }
+        else {
+          console.log('get like response error:', data.State);
+        }
+      });
   }
 
   deleteContent() {
@@ -143,5 +165,9 @@ export class ContentComponent implements OnInit {
       nzCancelText: '取消',
       nzOnCancel: () => console.log('Cancel delete')
     });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }

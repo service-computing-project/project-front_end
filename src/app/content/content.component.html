@@ -1,9 +1,9 @@
 <div class="layout">
   <div class="layout-content">
     <div class="inner-content">
-      <div class="content-card">
-        <nz-card [nzActions]="[actionLike, actionEdit, actionDelete, actionEllipsis]">
-          <nz-card-meta [nzTitle]="authorData.Name" [nzDescription]="contentDetail.PublishDate | date:'yyyy-MM-dd HH:mm:ss'" [nzAvatar]="avatarTemplate"></nz-card-meta>
+      <div class="content-card pt-3">
+        <nz-card [nzActions]="[actionGoBack, actionLike, actionEdit, actionDelete]">
+          <nz-card-meta [nzTitle]="titleTemplate" [nzDescription]="contentDetail.PublishDate | date:'yyyy-MM-dd HH:mm:ss'" [nzAvatar]="avatarTemplate"></nz-card-meta>
           <p class="pt-2">
             {{ contentDetail.Detail }}
           </p>
@@ -17,10 +17,19 @@
             </nz-space>
           </div>
         </nz-card>
+        <ng-template #titleTemplate>
+          <span class="content-card-user-name" [routerLink]="['/user', contentDetail.OwnID]">
+            {{authorData.Name}}
+          </span>
+        </ng-template>
         <ng-template #avatarTemplate>
           <!-- <i nz-icon [nzType]="'smile'" [nzTheme]="'outline'" style="width: 32px; height: 32px;"></i> -->
-          <nz-avatar *ngIf="!authorData.Avatar || authorData.Avatar ==''" nzText="U" style="background-color: #4b769e;"></nz-avatar>
-          <nz-avatar *ngIf="authorData.Avatar && authorData.Avatar !=''" [nzSrc]="authorData.Avatar"></nz-avatar>
+          <div *ngIf="!authorData.Avatar || authorData.Avatar ==''" class="content-card-user-avatar" [routerLink]="['/user', contentDetail.OwnID]">
+            <nz-avatar nzText="U" style="background-color: #4b769e;"></nz-avatar>
+          </div>
+          <div *ngIf="authorData.Avatar && authorData.Avatar !=''" class="content-card-user-avatar" [routerLink]="['/user', contentDetail.OwnID]">
+            <nz-avatar [nzSrc]="authorData.Avatar" ></nz-avatar>
+          </div>
         </ng-template>
         <ng-template #actionSetting>
           <i nz-icon nzType="setting"></i>
@@ -40,6 +49,9 @@
         </ng-template>
         <ng-template #actionDelete>
           <i nz-icon nzType="delete" nzTheme="outline" (click)="showDeleteConfirm()"></i>
+        </ng-template>
+        <ng-template #actionGoBack>
+          <i nz-icon nzType="left" nzTheme="outline" (click)="goBack()"></i>
         </ng-template>
         <ng-template #actionEllipsis>
           <i nz-icon nzType="ellipsis"></i>

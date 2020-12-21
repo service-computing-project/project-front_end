@@ -33,6 +33,11 @@ export interface LikePostRes {
   Data: [];
 }
 
+export interface LikeGetRes {
+  State: string;
+  Data: [];
+}
+
 export interface DeletePostRes {
   State: string;
   Data: [];
