@@ -10,6 +10,8 @@ import { ContentService } from '../content/content.service';
 })
 export class HomeComponent implements OnInit {
   publicContents: PublicDataItem[];
+  currentPageId: number;
+  pageSize: number;
 
   constructor(
     private readonly homeService: HomeService,
@@ -17,8 +19,10 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.currentPageId = 1;
+    this.pageSize = 2;
     this.homeService
-      .getAllPublicData()
+      .getPublicDataByPage(this.currentPageId, this.pageSize)
       .subscribe(data => {
         this.publicContents = data.Data;
         for (let i = 0; i < this.publicContents.length; i++) {
@@ -26,7 +30,7 @@ export class HomeComponent implements OnInit {
           this.likeContent(this.publicContents[i].Data.ID, i);
         }
 
-        console.log('res', data);
+        console.log('getPublicDataByPage', this.currentPageId, data);
         console.log('this.allData', this.publicContents);
       });
   }

@@ -1,5 +1,10 @@
 import { ContentEntity } from './../content/content.entity'
 
+export interface PublicReq {
+  page:	number;     //	页码
+  per_page:	number; //	页大小
+}
+
 export interface PublicRes {
   State: string;
   Data: PublicDataItem[];
