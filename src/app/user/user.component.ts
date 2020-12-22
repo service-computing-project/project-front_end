@@ -31,26 +31,7 @@ export class UserComponent implements OnInit {
     if(currentUser) {
       console.log(currentUser);
     }
-    this.userNotificationData = {
-      "State": "success",
-      "Notification": [
-      {
-        "Data": {
-        "ID": "5fc774187a2bdd000111e10c",
-        "CreateTime": "1606563448000",
-        "Content": "bb",
-        "SourceID": "5b3510fe7a2bdd4aac29eb73",
-        "TargetID": "5b3510fe7a2bdd4aac29eb73",
-        "ContentID": "5fda52e2619fcb15076f9b0c",
-        "Type": "like"
-        },
-        "User": {
-        "Name": "Test用户",
-        "Avatar": "https://violet-1252808268.cos.ap-guangzhou.myqcloud.com/5b1fe672f2e85b26522ac546.jpg",
-        "Gender": 0
-        }
-      }]
-    };
+    this.getNotification();
     // this.userBlogData = {
     //   "State": "success",
     //   "Data": [
