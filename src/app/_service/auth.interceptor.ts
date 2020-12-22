@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
         withCredentials: true,
         // headers: req.headers.set('Authorization', currentUser.Data)
         setHeaders: {
-          Authorization: `Bearer ${currentUser.Data}`
+          Authorization: `${currentUser.Data}`
         }
       });
       console.log(newReq);
