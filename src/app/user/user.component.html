@@ -1,18 +1,9 @@
 <div class="mainContainer">
   <div class="userInfoContainer">
     <div class="avatar" *ngIf="userInfoData">
-    <!-- <div class="avatar"> -->
-      <!-- <img src="https://cdn.jsdelivr.net/gh/sherryjw/StaticResource@master/image/404.jpg" style="width:100px; height:100px; border-radius:50%; border:1px solid #484848"> -->
       <img src="{{userInfoData.Info.Avatar}}" style="width:100px; height:100px; border-radius:50%; border:1px solid #484848">
     </div>
     <div class="userInfo" *ngIf="userInfoData">
-    <!-- <div class="userInfo"> -->
-      <!-- <p class="name" align="center">Test</p>
-      <p class="bio">这是一段简介这是一段简介这是一段简介这是一段简介</p>
-      <p class="gender"><i nz-icon [nzType]="'woman'"></i></p>
-      <p class="id">ID: 5fd8e8a5c93c73399fa8d448</p>
-      <p class="email">Email: 133465212@qq.com</p> -->
-
       <p class="name" align="center">{{userInfoData.Info.Name}}</p>
       <p class="bio">{{userInfoData.Info.Bio}}</p>
       <p class="gender" *ngIf="isBoy()"><i nz-icon [nzType]="'man'"></i></p>
@@ -26,7 +17,7 @@
       <nz-tab nzTitle="Blog List">
         <div class="blogContainer" *ngIf="userBlogData">
           <div class="blogCard" *ngFor="let blog of userBlogData">
-
+            <p>ppp</p>
           </div>
         </div>
       </nz-tab>
@@ -37,6 +28,9 @@
             <p class="content">{{notification.Data.Content}}</p>
             <p class="createTime">{{notification.Data.CreateTime}}</p>
           </div>
+        </div>
+        <div class="notificationContainer" *ngIf="!userNotificationData">
+          <nz-empty></nz-empty>
         </div>
       </nz-tab>
     </nz-tabset>
