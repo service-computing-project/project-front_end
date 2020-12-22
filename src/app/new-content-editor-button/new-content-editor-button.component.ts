@@ -80,19 +80,17 @@ export class NewContentEditorButtonComponent implements OnInit {
   handleEditOk(): void {
     this.isEditOkLoading = true;
     let form = this.form.value;
+    let tags = [];
     if (form.tags) {
       if (form.tags.length) {
-        form.tags = this.splitTags(form.tags);
+        tags = this.splitTags(form.tags);
       }
     }
-    else {
-      form.tags = [];
-    }
-    console.log(form.tags);
+    console.log(tags);
     let isPublic = form.visibleRange === '公开' ? true : false;
     console.log('form before send new post', form);
     this.contentService.
-      sendNewPost(form.content, form.tags, isPublic)
+      sendNewPost(form.content, tags, isPublic)
       .subscribe(
         data => {
           console.log('send new post response', data);
