@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       user => {
         console.log(user);
         if (user && user.Data) {
-          console.log("ok");
+          console.log(JSON.stringify(user));
           localStorage.setItem('currentUser', JSON.stringify(user));
 
           // to be modified
