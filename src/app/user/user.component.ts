@@ -52,7 +52,7 @@ export class UserComponent implements OnInit {
     // }
 
     this.currentPageId = 1;
-    this.pageSize = 2;
+    this.pageSize = 3;
     this.isLastPage = false;
     this.getBlogs(this.currentPageId, this.pageSize);
     this.getNotification();
@@ -65,6 +65,29 @@ export class UserComponent implements OnInit {
         this.router.navigate(['/404']);
       }
     });
+  }
+
+  getPage(pageId: number, pageSize: number) {
+    console.log('getPage:\n', 'currentPage:', this.currentPageId, 'reqPage:', id);
+    this.homeService
+      .getUserBlog(this.userId, pageId, pageSize)
+      .subscribe(
+        data => {
+          if (data.State === 'success') {
+            this.currentPageId = pageId;
+            this.userBlogData = data.Data;
+            if (data.Data.length < size) {
+              this.isLastPage = true;
+            }
+            else {
+              this.isLastPage = false;
+            }
+          }
+        },
+        error => {
+          this.isLastPage = true;
+        }
+      );
   }
 
   // 如果查看的页不是当前用户 那么不能修改名字
@@ -121,6 +144,7 @@ export class UserComponent implements OnInit {
       console.log(res);
     })
     this.getNotification();
+    console.log("deleteConfirm!");
   }
 
   jumpToBlog(blog: BlogDataEntity): void {
@@ -153,12 +177,8 @@ export class UserComponent implements OnInit {
       });
   }
 
-  deleteConfirm(note: NotificationEntity): void {
-    this.deleteNotification(note);
-  }
-
   deleteCancel(): void {
-
+    console.log("deleteCancel!");
   }
 
   isBoy() {
