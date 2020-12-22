@@ -68,15 +68,14 @@ export class UserComponent implements OnInit {
   }
 
   getPage(pageId: number, pageSize: number) {
-    console.log('getPage:\n', 'currentPage:', this.currentPageId, 'reqPage:', id);
-    this.homeService
+    this.userService
       .getUserBlog(this.userId, pageId, pageSize)
       .subscribe(
         data => {
           if (data.State === 'success') {
             this.currentPageId = pageId;
             this.userBlogData = data.Data;
-            if (data.Data.length < size) {
+            if (data.Data.length < pageSize) {
               this.isLastPage = true;
             }
             else {
