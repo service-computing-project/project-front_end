@@ -58,7 +58,7 @@
           <nz-empty [nzNotFoundContent]="notFoundContent">
             <ng-template #notFoundContent><span> 暂无博客 </span></ng-template>
           </nz-empty>
-          <div class="pageButtons" *ngIf="empty">
+          <div class="pageButtons" *ngIf="!empty">
             <nz-button-group>
               <button *ngIf="currentPageId == 1" nz-button nzType="default" disabled><i nz-icon nzType="left"></i></button>
               <button *ngIf="currentPageId != 1" nz-button nzType="default" (click)="getPage(currentPageId - 1, pageSize)"><i nz-icon nzType="left"></i></button>
