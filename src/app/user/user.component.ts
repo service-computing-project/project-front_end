@@ -61,8 +61,8 @@ export class UserComponent implements OnInit {
       this.userNotifications = res.Notifications;
       console.log(res);
       console.log(res.Notifications);
-      console.log(res.Notifications[0]);
-      console.log(res.Notifications[0].Content);
+      console.log(res.Notifications[0].Notification);
+      console.log(res.Notifications[0].Notification.Content);
     });
   }
 
