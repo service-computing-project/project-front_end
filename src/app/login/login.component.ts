@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   login() {
     localStorage.removeItem('currentUser');
     this.loading = true;
-    this.loginService.postLogin(this.model.username, this.model.password).subscribe(
+    this.loginService.postLogin(this.model.username, this.model.password).map(
       user => {
         console.log(user);
         if (user && user.Data) {
@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
           this.createSuccessNotification();
           this.router.navigate(['/home']);
         }
+        return user;
       }
     );
     // this.loginService.postLogin(this.model.username, this.model.password).subscribe(

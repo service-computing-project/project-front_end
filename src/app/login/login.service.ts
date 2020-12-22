@@ -13,7 +13,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  public postLogin(usr: string, pass: string): Observable<any> {
+  public postLogin(usr: string, pass: string) {
     let postData = {
       username: usr,
       password: pass
