@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { PublicRes, PublicReq } from './home.entity';
+import { PublicRes, PublicReq, NewPostReq, NewPostRes } from './home.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +25,16 @@ export class HomeService {
         page: `${pageid}`,
         per_page: `${pagesz}`,
       }
-    })
+    });
   }
 
-  // public sendNewPost(detail: string) {
-  //   /api/content/text
-  // }
+  public sendNewPost(p_detail: string, p_tags: string[], p_is_public: boolean) {
+    let url = `${this.reqUrl}api/content/text`;
+    let postData: NewPostReq = {
+      detail: p_detail,
+      tags: p_tags,
+      isPublic: p_is_public
+    };
+    return this.http.post<NewPostRes>(url, postData);
+  }
 }

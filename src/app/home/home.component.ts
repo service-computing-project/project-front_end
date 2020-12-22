@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
   isEditVisible: boolean;
   isEditOkLoading: boolean;
   form: FormGroup;
+  visibleRangeValues: string[] = ['公开', '仅自己可见'];    // 编辑新博客表单中可见范围的可选值
+  visibleRangeValue: string = this.visibleRangeValues[0];  // 编辑新博客表单中可见范围的选中值
 
   constructor(
     private readonly homeService: HomeService,
@@ -27,7 +29,8 @@ export class HomeComponent implements OnInit {
   ) {
     this.form = this.formBuilder.group({
       content: [null, [Validators.maxLength(140)]],
-      tags: [null]
+      tags: [null],
+      visibleRange: this.visibleRangeValues[0]
     });
   }
 
@@ -51,7 +54,6 @@ export class HomeComponent implements OnInit {
               this.publicContents[i].isLiked = false;
               this.isLikedByUser(this.publicContents[i].Data.ID, i);
             }
-
             if (data.Data.length < size) {
               this.isLastPage = true;
             }
@@ -113,27 +115,69 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  createSendOkNotification(): void {
+    this.notification
+      .blank(
+        '成功',
+        '发送成功',
+        { nzDuration: 2000 }
+      )
+      .onClick.subscribe(() => {
+      });
+  }
+
+  createSendFailedNotification(): void {
+    this.notification
+      .blank(
+        '失败',
+        '发送失败',
+        { nzDuration: 2000 }
+      )
+      .onClick.subscribe(() => {
+      });
+  }
+
   showEditModal(): void {
     this.isEditVisible = true;
   }
 
   handleEditOk(): void {
-    let form = this.form.value;
     this.isEditOkLoading = true;
-    console.log('form before update post', form);
-    // this.contentService.
-    //   updatePost(this.contentId, form.content, this.contentDetail.Tag, this.contentDetail.Public)
-    //   .subscribe(data => {
-    //     console.log('update post response', data);
-    //     if (data.State === 'success') {
-    //       this.contentDetail.Detail = form.content;
-    //     }
-    //   })
-    // setTimeout(() => {
-    //   this.isEditVisible = false;
-    //   this.isEditOkLoading = false;
-    //   // this.flushData();
-    // }, 100);
+    let form = this.form.value;
+    form.tags = this.splitTags(form.tags);
+    form.visibleRange = form.visibleRange === '公开' ? true : false;
+    console.log('form before send new post', form);
+    this.homeService.
+      sendNewPost(form.content, form.tags, form.visibleRange)
+      .subscribe(
+        data => {
+          console.log('send new post response', data);
+          if (data.State === 'success') {
+            this.createSendOkNotification();
+            setTimeout(() => {
+              this.isEditVisible = false;
+              this.isEditOkLoading = false;
+              this.getPage(1, this.pageSize);
+            }, 1000);
+          }
+          else {
+            console.log('send new post response error state:', data.State);
+            this.createSendFailedNotification();
+            setTimeout(() => {
+              this.isEditVisible = false;
+              this.isEditOkLoading = false;
+            }, 1000);
+          }
+        },
+        error => {
+          console.log('send new post error:',error);
+          this.createSendFailedNotification();
+            setTimeout(() => {
+              this.isEditVisible = false;
+              this.isEditOkLoading = false;
+            }, 1000);
+        }
+      )
   }
 
   handleEditCancel(): void {
