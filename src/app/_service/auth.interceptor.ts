@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       });
     }
-    else {      //如果当前不是登陆状态（其实好像不需要cookie？
+    else {      //如果当前不是登录状态（其实好像不需要cookie？
       req = req.clone({
         withCredentials: true
       });

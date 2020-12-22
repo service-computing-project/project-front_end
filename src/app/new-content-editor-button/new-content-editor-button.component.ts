@@ -40,7 +40,7 @@ export class NewContentEditorButtonComponent implements OnInit {
     this.notification
       .blank(
         '提示',
-        '请在登陆后执行操作'
+        '请在登录后执行操作'
       )
       .onClick.subscribe(() => {
       });
