@@ -21,7 +21,7 @@
       </div>
     </div> -->
     <nz-tabset>
-      <!-- <nz-tab nzTitle="Blog List">
+      <nz-tab nzTitle="Blog List">
         <div class="blogContainer" *ngIf="userBlogData">
           <div class="blogCard" *ngFor="let blog of userBlogData" (click)="jumpToBlog(blog)">
             <p>{{ blog.ID }}</p>
@@ -33,16 +33,16 @@
             <ng-template #notFoundContent><span> 暂无博客 </span></ng-template>
           </nz-empty>
         </div>
-      </nz-tab> -->
-      <nz-tab nzTitle="Notification Center">
+      </nz-tab>
+      <!-- <nz-tab nzTitle="Notification Center">
         <div class="notificationContainer" *ngIf="userNotifications">
           <div class="notificationCard" *ngFor="let notification of userNotifications">
             <p class="targetUser">{{notification.User.Name}}：</p>
-            <!-- <p class="content">{{notification.Notification.Content}}</p>
+            <p class="content">{{notification.Notification.Content}}</p>
             <p class="createTime">
               {{notification.Notification.CreateTime}}
               <i nz-icon [nzType]="'delete'" class="delNotification" (click)="deleteNotification(notification)"></i>
-            </p> -->
+            </p>
           </div>
         </div>
         <div class="notificationContainer" *ngIf="userNotifications && userNotifications.length==0">
@@ -50,7 +50,7 @@
             <ng-template #notFoundContent><span> 暂无通知 </span></ng-template>
           </nz-empty>
         </div>
-      </nz-tab>
+      </nz-tab> -->
     </nz-tabset>
   </div>
 </div>

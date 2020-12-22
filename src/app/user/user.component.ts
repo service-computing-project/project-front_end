@@ -78,6 +78,7 @@ export class UserComponent implements OnInit {
     this.userService.deleteNotification(id).subscribe(res => {
       console.log(res);
     })
+    this.getNotification();
   }
 
   jumpToBlog(blog: BlogDataEntity): void {
