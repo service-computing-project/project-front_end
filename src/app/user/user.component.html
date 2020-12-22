@@ -34,11 +34,11 @@
             <p class="createTime">{{notification.Data.CreateTime}}</p>
           </div>
         </div>
-        <div class="notificationContainer" *ngIf="userNotificationData && userNotificationData.Notification.length==0">
+        <!-- <div class="notificationContainer" *ngIf="userNotificationData && userNotificationData.Notification.length==0">
           <nz-empty [nzNotFoundContent]="notFoundContent">
             <ng-template #notFoundContent><span> 暂无通知 </span></ng-template>
           </nz-empty>
-        </div>
+        </div> -->
       </nz-tab>
     </nz-tabset>
   </div>
