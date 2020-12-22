@@ -34,9 +34,8 @@ export class NavBarComponent implements OnInit {
     this.userService.getUserInfo("self").subscribe(res =>{
       this.userId = res.ID;
       console.log(this.userId);
+      this.router.navigate(['/user/'+this.userId]);
     });
-    console.log(this.userId);
-    // this.router.navigate(['/user/'+this.userId]);
   }
 
   jumpToLogin(): void {
