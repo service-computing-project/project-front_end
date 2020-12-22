@@ -13,8 +13,8 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   private userBaseUrl = apiUrl + 'api/user/info/';
-  private notificationBaseUrl = apiUrl + 'api/notification/all';
-  private blogBaseUrl = apiUrl + 'api/content/usercontent/';
+  private notificationBaseUrl = apiUrl + 'api/notification/';
+  private blogBaseUrl = apiUrl + 'api/content/texts/';
 
   public getUserInfo(id: string): Observable<UserInfoEntity> {
     let userUrl = this.userBaseUrl + id;
@@ -23,9 +23,16 @@ export class UserService {
   }
 
   public getNotification(): Observable<UserNotificationEntity> {
-    console.log(this.notificationBaseUrl);
-    return this.http.get<UserNotificationEntity>(this.notificationBaseUrl);
-  }blog
+    let notificationUrl = this.notificationBaseUrl + 'all';
+    console.log(notificationUrl);
+    return this.http.get<UserNotificationEntity>(notificationUrl);
+  }
+
+  public deleteNotification(id: number) {
+    let deleteUrl = this.notificationBaseUrl + id;
+    console.log(deleteUrl);
+    return this.http.delete<any>(deleteUrl);
+  }
 
   public getUserBlog(id: string, pageId: number, pageSize: number): Observable<UserBlogEntity> {
     let blogUrl = this.blogBaseUrl + id;
