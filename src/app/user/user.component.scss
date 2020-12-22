@@ -47,7 +47,7 @@
           color: gray;
           float: right;
         }
-        .delNotification {
+        .isPublic, .delNotification {
           margin-left: 10px;
           color: #bfbfbf;
         }
@@ -59,7 +59,12 @@
         margin: 20px auto;
         width: 90%;
         box-shadow: 0 2px 4px 0 #bfbfbf;
+        .publishDate {
+          color: #bfbfbf;
+          float: right;
+        }
         .blogContent {
+          font-size: 16px;
           display: block;
           line-clamp: 5; /*多行文本 溢出部分...*/
           box-orient: vertical; /*从上向下垂直排列*/

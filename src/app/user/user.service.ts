@@ -15,6 +15,7 @@ export class UserService {
   private userBaseUrl = apiUrl + 'api/user/info/';
   private notificationBaseUrl = apiUrl + 'api/notification/';
   private blogBaseUrl = apiUrl + 'api/content/texts/';
+  private userUpdateBaseUrl = apiUrl + 'api/user/name';
 
   public getUserInfo(id: string): Observable<UserInfoEntity> {
     let userUrl = this.userBaseUrl + id;
@@ -45,5 +46,9 @@ export class UserService {
         per_page: `${pageSize}`,
       }
     });
+  }
+
+  public updateUsernamePost(newName: string) {
+    return this.http.post<any>(this.userUpdateBaseUrl, {name: newName});
   }
 }

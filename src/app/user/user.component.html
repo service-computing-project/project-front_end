@@ -4,7 +4,29 @@
       <img src="{{userInfoData.Info.Avatar}}" style="width:100px; height:100px; border-radius:50%; border:1px solid #484848">
     </div>
     <div class="userInfo" *ngIf="userInfoData">
-      <p class="name" align="center">{{userInfoData.Info.Name}}<i nz-icon [nzType]="'edit'" class="editName"></i></p>
+      <p class="name" align="center">
+        {{userInfoData.Info.Name}}
+        <i nz-icon [nzType]="'edit'" class="editName" (click)="showEditModal()"></i>
+      </p>
+      <nz-modal
+        [(nzVisible)]="isEditVisible"
+        nzTitle="Edit Username"
+        nzOkText="Confirm"
+        nzCancelText="Cancel"
+        (nzOnCancel)="handleEditCancel()"
+        (nzOnOk)="handleEditOk()"
+        [nzOkLoading]="isEditOkLoading"
+      >
+        <form nz-form [formGroup]="form" nzLayout="vertical">
+          <nz-form-item>
+            <nz-form-control>
+              <!-- <nz-textarea-count [nzMaxCharacterCount]="140"> -->
+                <textarea rows="4" formControlName="content" nz-input></textarea>
+              <!-- </nz-textarea-count> -->
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </nz-modal>
       <p class="bio">{{userInfoData.Info.Bio}}</p>
       <p class="gender" *ngIf="isBoy()"><i nz-icon [nzType]="'man'"></i></p>
       <p class="gender" *ngIf="!isBoy()"><i nz-icon [nzType]="'woman'"></i></p>
@@ -13,20 +35,15 @@
     </div>
   </div>
   <div class="blogListContainer">
-    <!-- <div class="notificationContainer">
-      <div class="notificationCard" *ngFor="let notification of notifications">
-        <p class="targetUser">{{notification.User.Name}}：</p>
-        <p class="content">{{notification.Data.Content}}</p>
-        <p class="createTime">{{notification.Data.CreateTime}}</p>
-      </div>
-    </div> -->
     <nz-tabset>
       <nz-tab nzTitle="Blog List">
         <div class="blogContainer" *ngIf="userBlogData">
           <div class="blogCard" *ngFor="let blog of userBlogData" (click)="jumpToBlog(blog)">
-            <p class="publishDate">{{ blog.PublishDate }}</p>
             <p class="blogContent">{{ blog.Detail }}</p>
-            <i nz-icon [nzType]="'lock'" class="isPublic" *ngIf="!blog.Public"></i>
+            <p class="publishDate">
+              {{ blog.PublishDate | date:'yyyy-MM-dd HH:mm:ss' }}
+              <i nz-icon [nzType]="'lock'" class="isPublic" *ngIf="!blog.Public"></i>
+            </p>
           </div>
         </div>
         <div class="blogContainer" *ngIf="userBlogData && userBlogData.length==0">
@@ -35,13 +52,13 @@
           </nz-empty>
         </div>
       </nz-tab>
-      <!-- <nz-tab nzTitle="Notification Center">
+      <nz-tab nzTitle="Notification Center">
         <div class="notificationContainer" *ngIf="userNotifications">
           <div class="notificationCard" *ngFor="let notification of userNotifications">
             <p class="targetUser">{{notification.User.Name}}：</p>
             <p class="content">{{notification.Notification.Content}}</p>
             <p class="createTime">
-              {{notification.Notification.CreateTime}}
+              {{notification.Notification.CreateTime | date:'yyyy-MM-dd HH:mm:ss'}}
               <i nz-icon [nzType]="'delete'" class="delNotification" (click)="deleteNotification(notification)"></i>
             </p>
           </div>
@@ -51,7 +68,7 @@
             <ng-template #notFoundContent><span> 暂无通知 </span></ng-template>
           </nz-empty>
         </div>
-      </nz-tab> -->
+      </nz-tab>
     </nz-tabset>
   </div>
 </div>

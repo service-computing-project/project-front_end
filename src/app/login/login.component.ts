@@ -70,7 +70,10 @@ export class LoginComponent implements OnInit {
     this.notification
       .blank(
         'Notification',
-        'Login Successfully!'
+        'Login Successfully!',
+        {
+          nzPlacement: 'bottomRight'
+        }
       )
       .onClick.subscribe(() => {
       });
@@ -80,7 +83,10 @@ export class LoginComponent implements OnInit {
     this.notification
       .blank(
         'Notification',
-        this.wrongState
+        this.wrongState,
+        {
+          nzPlacement: 'bottomRight'
+        }
       )
       .onClick.subscribe(() => {
       });
