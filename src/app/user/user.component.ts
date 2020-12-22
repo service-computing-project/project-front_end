@@ -43,6 +43,8 @@ export class UserComponent implements OnInit {
   isDeleteVisible: boolean;
   isDeleteOkLoading: boolean;
 
+  empty = false;
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id');
@@ -157,6 +159,9 @@ export class UserComponent implements OnInit {
   getBlogs(pageId: number, pageSize: number): void {
     this.userService.getUserBlog(this.userId, pageId, pageSize).subscribe(res => {
       this.userBlogData = res.Data;
+      if (res.Data == null) {
+        this.empty = true;
+      }
       console.log(res);
     });
   }
