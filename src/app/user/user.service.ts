@@ -14,7 +14,7 @@ export class UserService {
 
   private userBaseUrl = apiUrl + 'api/user/info/';
   private notificationBaseUrl = apiUrl + 'api/notification/all';
-  private blogBaseUrl = apiUrl + 'api/content/texts/';
+  private blogBaseUrl = apiUrl + 'api/content/usercontent/';
 
   public getUserInfo(id: string): Observable<UserInfoEntity> {
     let userUrl = this.userBaseUrl + id;
