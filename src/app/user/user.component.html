@@ -23,8 +23,9 @@
     <nz-tabset>
       <!-- <nz-tab nzTitle="Blog List">
         <div class="blogContainer" *ngIf="userBlogData">
-          <div class="blogCard" *ngFor="let blog of userBlogData">
+          <div class="blogCard" *ngFor="let blog of userBlogData" (click)="jumpToBlog(blog)">
             <p>{{ blog.ID }}</p>
+            <p class="blogContent">{{ blog.Detail }}</p>
           </div>
         </div>
         <div class="blogContainer" *ngIf="userBlogData && userBlogData.length==0">
@@ -38,8 +39,10 @@
           <div class="notificationCard" *ngFor="let notification of userNotifications">
             <p class="targetUser">{{notification.User.Name}}：</p>
             <!-- <p class="content">{{notification.Notification.Content}}</p>
-            <p class="createTime">{{notification.Notification.CreateTime}}</p> -->
-            <i nz-icon [nzType]="'delete'" class="delNotification"></i>
+            <p class="createTime">
+              {{notification.Notification.CreateTime}}
+              <i nz-icon [nzType]="'delete'" class="delNotification" (click)="deleteNotification(notification)"></i>
+            </p> -->
           </div>
         </div>
         <div class="notificationContainer" *ngIf="userNotifications && userNotifications.length==0">

@@ -29,9 +29,9 @@ export class UserService {
     return this.http.get<UserNotificationEntity>(notificationUrl);
   }
 
-  public deleteNotification(id: number) {
+  public deleteNotification(id: string) {
     let deleteUrl = this.notificationBaseUrl + id;
-    // console.log(deleteUrl);
+    console.log(deleteUrl);
     return this.http.delete<any>(deleteUrl);
   }
 

@@ -66,10 +66,6 @@ export class UserComponent implements OnInit {
     });
   }
 
-  isBoy() {
-    return this.userInfoData.Info.Gender == 0;
-  }
-
   getBlogs(pageId: number, pageSize: number): void {
     this.userService.getUserBlog(this.userId, pageId, pageSize).subscribe(res => {
       this.userBlogData = res.Data;
@@ -77,6 +73,19 @@ export class UserComponent implements OnInit {
     });
   }
 
+  deleteNotification(note: NotificationEntity): void {    // 刷新？
+    let id = note.Notification.ID;
+    this.userService.deleteNotification(id).subscribe(res => {
+      console.log(res);
+    })
+  }
 
+  jumpToBlog(blog: BlogDataEntity): void {
+    this.router.navigate(['/content', blog.ID]);
+  }
+
+  isBoy() {
+    return this.userInfoData.Info.Gender == 0;
+  }
 
 }
