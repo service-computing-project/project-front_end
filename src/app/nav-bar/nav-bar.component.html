@@ -5,10 +5,10 @@
         <a routerLinkActive="active" routerLink="/"><img src="https://cdn.jsdelivr.net/gh/sherryjw/StaticResource@master/image/logo-03.png" height="50"></a>
         <div class="user" *ngIf="isLogin()">
           <img src="">
-          <a (click)="jumpToUser()" routerLinkActive="active">
-            <span>这里是一个用户头像</span>
+          <a (click)="jumpToUser()" routerLinkActive="active" class="userEntrance">
+            <span>个人主页</span>
           </a>
-          <a (click)="logOut()" routerLinkActive="active">
+          <a (click)="logOut()" routerLinkActive="active" class="logoutEntrance">
             <span>退出登录</span>
           </a>
         </div>

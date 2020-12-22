@@ -1,10 +1,18 @@
-// [nz-menu] {
-//   line-height: 64px;
-// }
-
 .user {
   float: right;
   width: 250px;
   height: 31px;
   // margin-top: -64px;
+}
+
+.userEntrance, .logoutEntrance {
+  color: #fff;
+}
+
+.userEntrance {
+  margin-right: 30px;
+}
+
+.logoutEntrance {
+  margin-left: 30px;
 }
