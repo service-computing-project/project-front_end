@@ -158,7 +158,7 @@ export class HomeComponent implements OnInit {
               this.isEditVisible = false;
               this.isEditOkLoading = false;
               this.getPage(1, this.pageSize);
-            }, 1000);
+            }, 400);
           }
           else {
             console.log('send new post response error state:', data.State);
@@ -166,7 +166,7 @@ export class HomeComponent implements OnInit {
             setTimeout(() => {
               this.isEditVisible = false;
               this.isEditOkLoading = false;
-            }, 1000);
+            }, 400);
           }
         },
         error => {
@@ -175,7 +175,7 @@ export class HomeComponent implements OnInit {
             setTimeout(() => {
               this.isEditVisible = false;
               this.isEditOkLoading = false;
-            }, 1000);
+            }, 400);
         }
       )
   }
