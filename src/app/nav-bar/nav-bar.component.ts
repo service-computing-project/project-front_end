@@ -32,9 +32,10 @@ export class NavBarComponent implements OnInit {
 
   jumpToUser(): void {
     this.userService.getUserInfo("self").subscribe(res =>{
-      console.log(res);
       this.userId = res.ID;
+      console.log(this.userId);
     });
+    console.log(this.userId);
     // this.router.navigate(['/user/'+this.userId]);
   }
 
