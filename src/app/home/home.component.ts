@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
     return tags.split('#').filter(data=>{ return data != '';});
   }
 
-  isLikedByUser(contentId: string, index: number) {
+  isLikedByUser(contentId: string, index: number): void {
     this.contentService
       .getAllLikeUsers(contentId)
       .subscribe(
@@ -138,7 +138,12 @@ export class HomeComponent implements OnInit {
   }
 
   showEditModal(): void {
-    this.isEditVisible = true;
+    if (localStorage.getItem('currentUsername')) {
+      this.isEditVisible = true;
+    }
+    else {
+      this.createNoLoginNotification();
+    }
   }
 
   handleEditOk(): void {
@@ -179,7 +184,7 @@ export class HomeComponent implements OnInit {
     this.isEditVisible = false;
   }
 
-  likeContent(contentID: string, itemIndex: number) {
+  likeContent(contentID: string, itemIndex: number): void {
     this.contentService
       .likePost(contentID)
       .subscribe(
@@ -202,7 +207,7 @@ export class HomeComponent implements OnInit {
       );
   }
 
-  unlikeContent(contentID: string, itemIndex: number) {
+  unlikeContent(contentID: string, itemIndex: number): void {
     this.contentService
       .unlikePost(contentID)
       .subscribe(
