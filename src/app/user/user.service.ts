@@ -14,7 +14,7 @@ export class UserService {
 
   private userBaseUrl = apiUrl + 'api/user/info/';
   private notificationBaseUrl = apiUrl + 'api/notification/all';
-  private blogBaseUrl = 'api/content/texts/';
+  private blogBaseUrl = 'api/content/texts';
 
   public getUserInfo(id: string): Observable<UserInfoEntity> {
     let userUrl = this.userBaseUrl + id;
@@ -27,8 +27,14 @@ export class UserService {
     return this.http.get<UserNotificationEntity>(this.notificationBaseUrl);
   }
 
-  public getUserBlog(id: string): Observable<UserBlogEntity> {
-    let blogUrl = this.blogBaseUrl + id;
-    return this.http.get<UserBlogEntity>(blogUrl);
+  public getUserBlog(pageId: number, pageSize: number): Observable<UserBlogEntity> {
+    let blogUrl = this.blogBaseUrl;
+    return this.http.get<UserBlogEntity>(blogUrl,
+    {
+      params: {
+        page: `${pageId}`,
+        per_page: `${pageSize}`,
+      }
+    });
   }
 }

@@ -22,35 +22,26 @@ export class UserComponent implements OnInit {
   userNotificationData: UserNotificationEntity;
   userId: string;
 
+  currentPageId: number;
+  pageSize: number;
+  isLastPage: boolean;
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id');
     });
     this.flushData();
+
     var currentUser = localStorage.getItem('currentUser');
     if(currentUser) {
       console.log(currentUser);
     }
     this.getNotification();
-    // this.userBlogData = {
-    //   "State": "success",
-    //   "Data": [
-    //   {
-    //     "ID": "5b35115a7a2bdd4aac29eb74",
-    //     "Name": "我是一个测试账户",
-    //     "Detail": "test内容",
-    //     "OwnID": "5b3510fe7a2bdd4aac29eb73",
-    //     "PublishDate": 1530204506000,
-    //     "LikeNum": 2,
-    //     "CommentNum": 1,
-    //     "Public": true,
-    //     "Tag": [
-    //       "说明"
-    //     ]
-    //   }]
-    // };
-    // this.getNotification();
-    // this.getBlogs();
+
+    this.currentPageId = 1;
+    this.pageSize = 2;
+    this.isLastPage = false;
+    this.getBlogs(this.currentPageId, this.pageSize);
   }
 
   flushData(): void {
@@ -73,11 +64,11 @@ export class UserComponent implements OnInit {
     return this.userInfoData.Info.Gender == 0;
   }
 
-  // getBlogs(): void {
-  //   this.userService.getUserBlog(this.userId).subscribe(res => {
-  //     console.log(res);
-  //   });
-  // }
+  getBlogs(pageId: number, pageSize: number): void {
+    this.userService.getUserBlog(pageId, pageSize).subscribe(res => {
+      console.log(res);
+    });
+  }
 
 
 
