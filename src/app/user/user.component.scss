@@ -18,7 +18,6 @@
     .userInfo {
       .editName {
         color: #bfbfbf;
-        width: 15px;
       }
       .name {
         margin-top: 20px;
@@ -47,6 +46,9 @@
         .createTime {
           color: gray;
           float: right;
+        }
+        .delNotification {
+          color: #bfbfbf;
         }
       }
     }
