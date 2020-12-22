@@ -19,10 +19,9 @@ export class UserComponent implements OnInit {
 
   userInfoData: UserInfoEntity;
   userBlogData: BlogDataEntity[];
-  userNotificationData: UserNotificationEntity;
+  userNotificationData: UserNotificationEntity; //如果查看的页不是当前用户 那么不能显示通知
+  userNotifications: NotificationEntity[];
   userId: string;
-
-  notifications: any[];
 
   currentPageId: number;
   pageSize: number;
@@ -34,6 +33,7 @@ export class UserComponent implements OnInit {
     });
     this.flushData();
 
+    // 如果查看的页不是当前用户 那么不能显示通知
     // var currentUser = localStorage.getItem('currentUser');
     // if(currentUser) {
     //   console.log(currentUser);
@@ -58,7 +58,7 @@ export class UserComponent implements OnInit {
   getNotification(): void {
     this.userService.getNotification().subscribe(res => {
       this.userNotificationData = res;
-      this.notifications = res.Notifications;
+      this.userNotifications = res.Notifications;
       console.log(res);
     });
   }

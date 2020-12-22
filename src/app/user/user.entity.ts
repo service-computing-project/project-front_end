@@ -22,7 +22,7 @@ export interface BlogDataEntity {
   // Name: string;
   Detail: string;
   OwnID: string;
-  PublishData: string; //number ?
+  PublishData: number;
   LikeNum: number;
   // CommentNum: number;
   Public: boolean;
@@ -35,13 +35,13 @@ export interface UserNotificationEntity {
 }
 
 export interface NotificationEntity {
-  Data: NotificationDataEntity;
+  Notification: NotificationDataEntity;
   User: NotificationUserEntity;
 }
 
 export interface NotificationDataEntity {
   ID: string;
-  CreateTime: string;
+  CreateTime: number;
   Content: string;
   SourceID: string;
   TargetID: string;

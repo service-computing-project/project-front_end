@@ -13,13 +13,13 @@
     </div>
   </div>
   <div class="blogListContainer">
-    <div class="notificationContainer">
-      <!-- <div class="notificationCard" *ngFor="let notification of notifications">
+    <!-- <div class="notificationContainer">
+      <div class="notificationCard" *ngFor="let notification of notifications">
         <p class="targetUser">{{notification.User.Name}}：</p>
         <p class="content">{{notification.Data.Content}}</p>
         <p class="createTime">{{notification.Data.CreateTime}}</p>
-      </div> -->
-    </div>
+      </div>
+    </div> -->
     <nz-tabset>
       <nz-tab nzTitle="Blog List">
         <div class="blogContainer" *ngIf="userBlogData">
@@ -29,23 +29,23 @@
         </div>
         <div class="blogContainer" *ngIf="userBlogData && userBlogData.length==0">
           <nz-empty [nzNotFoundContent]="notFoundContent">
-            <ng-template #notFoundContent><span>  </span></ng-template>
+            <ng-template #notFoundContent><span> 暂无博客 </span></ng-template>
           </nz-empty>
         </div>
       </nz-tab>
       <nz-tab nzTitle="Notification Center">
         <div class="notificationContainer">
-          <!-- <div class="notificationCard" *ngFor="let notification of notifications">
+          <div class="notificationCard" *ngFor="let notification of userNotifications">
             <p class="targetUser">{{notification.User.Name}}：</p>
             <p class="content">{{notification.Data.Content}}</p>
             <p class="createTime">{{notification.Data.CreateTime}}</p>
-          </div> -->
+          </div>
         </div>
-        <!-- <div class="notificationContainer" *ngIf="userNotificationData && userNotificationData.Notification.length==0">
+        <div class="notificationContainer" *ngIf="userNotifications && userNotifications.length==0">
           <nz-empty [nzNotFoundContent]="notFoundContent">
             <ng-template #notFoundContent><span> 暂无通知 </span></ng-template>
           </nz-empty>
-        </div> -->
+        </div>
       </nz-tab>
     </nz-tabset>
   </div>
