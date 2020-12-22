@@ -174,6 +174,11 @@ export class HomeComponent implements OnInit {
             this.isEditOkLoading = false;
             this.getPage(1, this.pageSize);
             this.form.reset();
+            this.form.setValue({
+              content: null,
+              tags: [],
+              visibleRange: this.visibleRangeValues[0]
+            });
           }
           else {
             console.log('send new post response error state:', data.State);

@@ -96,6 +96,11 @@ export class NewContentEditorButtonComponent implements OnInit {
           console.log('send new post response', data);
           if (data.State === 'success') {
             this.form.reset();
+            this.form.setValue({
+              content: null,
+              tags: [],
+              visibleRange: this.visibleRangeValues[0]
+            });
             this.createSendOkNotification();
             this.isEditVisible = false;
             this.isEditOkLoading = false;
