@@ -19,12 +19,10 @@ export interface UserBlogEntity {
 
 export interface BlogDataEntity {
   ID: string;
-  // Name: string;
   Detail: string;
   OwnID: string;
-  PublishData: number;
+  PublishDate: number;
   LikeNum: number;
-  // CommentNum: number;
   Public: boolean;
   Tag: string[];
 }

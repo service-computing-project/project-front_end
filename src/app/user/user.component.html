@@ -24,8 +24,9 @@
       <nz-tab nzTitle="Blog List">
         <div class="blogContainer" *ngIf="userBlogData">
           <div class="blogCard" *ngFor="let blog of userBlogData" (click)="jumpToBlog(blog)">
-            <p>{{ blog.ID }}</p>
+            <p class="publishDate">{{ blog.PublishDate }}</p>
             <p class="blogContent">{{ blog.Detail }}</p>
+            <i nz-icon [nzType]="'lock'" class="isPublic" *ngIf="!blog.Public"></i>
           </div>
         </div>
         <div class="blogContainer" *ngIf="userBlogData && userBlogData.length==0">
