@@ -38,12 +38,12 @@ export class UserComponent implements OnInit {
     // if(currentUser) {
     //   console.log(currentUser);
     // }
-    this.getNotification();
 
     this.currentPageId = 1;
     this.pageSize = 2;
     this.isLastPage = false;
     this.getBlogs(this.currentPageId, this.pageSize);
+    this.getNotification();
   }
 
   flushData(): void {
