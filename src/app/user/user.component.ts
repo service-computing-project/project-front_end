@@ -137,6 +137,7 @@ export class UserComponent implements OnInit {
       console.log(res);
     })
     this.getNotification();
+    this.isDeleteVisible = false
     console.log("deleteConfirm!");
   }
 
