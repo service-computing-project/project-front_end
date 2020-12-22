@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../_service/authentication.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse, HttpResponseBase } from '@angular/common/http';
 import { apiUrl } from '../app.config';
 import { LoginService } from '../login/login.service';
@@ -17,7 +16,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
     private http: HttpClient,
     private readonly loginService: LoginService,
     private readonly userService: UserService,

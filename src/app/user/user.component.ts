@@ -35,6 +35,7 @@ export class UserComponent implements OnInit {
   pageSize: number;
   isLastPage: boolean;
 
+  isSelf: boolean;
   isEditVisible: boolean;
   isEditOkLoading: boolean;
   form: FormGroup;
@@ -44,12 +45,6 @@ export class UserComponent implements OnInit {
       this.userId = params.get('id');
     });
     this.flushData();
-
-    // 如果查看的页不是当前用户 那么不能显示通知
-    // var currentUser = localStorage.getItem('currentUser');
-    // if(currentUser) {
-    //   console.log(currentUser);
-    // }
 
     this.currentPageId = 1;
     this.pageSize = 3;
@@ -63,6 +58,14 @@ export class UserComponent implements OnInit {
       this.userInfoData = res;
       if(this.userInfoData.State != 'success') {
         this.router.navigate(['/404']);
+      }
+
+      let currentUsername = localStorage.getItem('currentUsername');
+      if (this.userInfoData.Info.Name != currentUsername) {
+        this.isSelf = false;
+      }
+      else {
+        this.isSelf = true;
       }
     });
   }

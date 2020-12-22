@@ -73,6 +73,18 @@
           color: #bfbfbf;
         }
       }
+      .pageButtons {
+        text-align: center;
+      }
+
+      [nz-button] {
+        margin-right: 8px;
+        margin-top: 12px;
+      }
+
+      nz-button-group [nz-button] {
+        margin-right: 0;
+      }
     }
     .notificationContainer, .blogContainer {
       height: 420px;

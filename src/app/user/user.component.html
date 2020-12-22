@@ -6,7 +6,7 @@
     <div class="userInfo" *ngIf="userInfoData">
       <p class="name" align="center">
         {{userInfoData.Info.Name}}
-        <i nz-icon [nzType]="'edit'" class="editName" (click)="showEditModal()"></i>
+        <i nz-icon [nzType]="'edit'" class="editName" (click)="showEditModal()" *ngIf="isSelf"></i>
       </p>
       <nz-modal
         [(nzVisible)]="isEditVisible"
@@ -45,7 +45,7 @@
               <i nz-icon [nzType]="'lock'" class="isPublic" *ngIf="!blog.Public"></i>
             </p>
           </div>
-          <div class="page-button">
+          <div class="pageButtons">
             <nz-button-group>
               <button *ngIf="currentPageId == 1" nz-button nzType="default" disabled><i nz-icon nzType="left"></i></button>
               <button *ngIf="currentPageId != 1" nz-button nzType="default" (click)="getPage(currentPageId - 1, pageSize)"><i nz-icon nzType="left"></i></button>
@@ -67,16 +67,14 @@
             <p class="content">{{notification.Notification.Content}}</p>
             <p class="createTime">
               {{notification.Notification.CreateTime | date:'yyyy-MM-dd HH:mm:ss'}}
-              <i nz-icon [nzType]="'delete'" class="delNotification">
-                <a
-                  nz-popconfirm
-                  nzPopconfirmTitle="Are you sure delete this task?"
-                  nzPopconfirmPlacement="bottom"
-                  (nzOnConfirm)="deleteNotification(notification)"
-                  (nzOnCancel)="deleteCancel()"
-                  >
-                  <!-- <i nz-icon [nzType]="'delete'" class="delNotification" (click)="deleteNotification(notification)"></i> -->
-                </a>
+              <i nz-icon [nzType]="'delete'" class="delNotification"
+                nz-popconfirm
+                nzPopconfirmTitle="Are you sure delete this task?"
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="deleteNotification(notification)"
+                (nzOnCancel)="deleteCancel()"
+                *ngIf="isSelf"
+              >
               </i>
             </p>
           </div>
