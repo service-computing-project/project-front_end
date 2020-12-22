@@ -18,6 +18,7 @@ export class UserService {
 
   public getUserInfo(id: string): Observable<UserInfoEntity> {
     let userUrl = this.userBaseUrl + id;
+    console.log(userUrl);
     return this.http.get<UserInfoEntity>(userUrl);
   }
 
@@ -28,6 +29,7 @@ export class UserService {
 
   public getUserBlog(id: string, pageId: number, pageSize: number): Observable<UserBlogEntity> {
     let blogUrl = this.blogBaseUrl + id;
+    console.log(blogUrl);
     return this.http.get<UserBlogEntity>(blogUrl);
   }
 }
