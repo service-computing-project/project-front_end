@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
-import { UserInfoEntity, InfoEntity, UserBlogEntity, BlogDataEntity, UserNotificationEntity } from './user.entity';
+import { UserInfoEntity, InfoEntity, UserBlogEntity, BlogDataEntity, UserNotificationEntity, NotificationEntity } from './user.entity';
 import { UserService } from './user.service';
 
 @Component({

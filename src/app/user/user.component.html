@@ -4,7 +4,7 @@
       <img src="{{userInfoData.Info.Avatar}}" style="width:100px; height:100px; border-radius:50%; border:1px solid #484848">
     </div>
     <div class="userInfo" *ngIf="userInfoData">
-      <p class="name" align="center">{{userInfoData.Info.Name}}<i nz-icon [nzType]="'edit'"></i></p>
+      <p class="name" align="center">{{userInfoData.Info.Name}}<i nz-icon [nzType]="'edit'" class="editName"></i></p>
       <p class="bio">{{userInfoData.Info.Bio}}</p>
       <p class="gender" *ngIf="isBoy()"><i nz-icon [nzType]="'man'"></i></p>
       <p class="gender" *ngIf="!isBoy()"><i nz-icon [nzType]="'woman'"></i></p>
@@ -37,8 +37,8 @@
         <div class="notificationContainer">
           <div class="notificationCard" *ngFor="let notification of userNotifications">
             <p class="targetUser">{{notification.User.Name}}：</p>
-            <p class="content">{{notification.Data.Content}}</p>
-            <p class="createTime">{{notification.Data.CreateTime}}</p>
+            <p class="content">{{notification.Notification.Content}}</p>
+            <p class="createTime">{{notification.Notification.CreateTime}}</p>
           </div>
         </div>
         <div class="notificationContainer" *ngIf="userNotifications && userNotifications.length==0">
