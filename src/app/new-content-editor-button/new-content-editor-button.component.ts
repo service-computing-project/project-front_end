@@ -5,11 +5,11 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { ContentService } from './../content/content.service';
 
 @Component({
-  selector: 'app-new-content-editor',
-  templateUrl: './new-content-editor.component.html',
-  styleUrls: ['./new-content-editor.component.scss']
+  selector: 'app-new-content-editor-button',
+  templateUrl: './new-content-editor-button.component.html',
+  styleUrls: ['./new-content-editor-button.component.scss']
 })
-export class NewContentEditorComponent implements OnInit {
+export class NewContentEditorButtonComponent implements OnInit {
   isEditVisible: boolean;
   isEditOkLoading: boolean;
   form: FormGroup;
@@ -80,7 +80,14 @@ export class NewContentEditorComponent implements OnInit {
   handleEditOk(): void {
     this.isEditOkLoading = true;
     let form = this.form.value;
-    form.tags = this.splitTags(form.tags);
+    if (form) {
+      if (form.length) {
+        form.tags = this.splitTags(form.tags);
+      }
+    }
+    else {
+      form.tags = [];
+    }
     let isPublic = form.visibleRange === '公开' ? true : false;
     console.log('form before send new post', form);
     this.contentService.

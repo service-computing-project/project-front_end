@@ -1,18 +1,33 @@
-.user {
-  float: right;
-  width: 250px;
-  height: 31px;
-  // margin-top: -64px;
-}
+// .user {
+//   float: right;
+//   width: 250px;
+//   height: 31px;
+//   // margin-top: -64px;
+// }
 
-.homeEntrance, .userEntrance, .logoutEntrance {
-  color: #fff;
-}
-
-.userEntrance {
-  margin-right: 30px;
-}
-
+.homeEntrance,
+.userEntrance,
 .logoutEntrance {
-  margin-left: 30px;
+  color: #fff !important;
 }
+
+// .userEntrance {
+//   margin-right: 30px;
+// }
+
+// .logoutEntrance {
+//   margin-left: 30px;
+// }
+
+.logo {
+  float: left;
+}
+
+[nz-menu] {
+  line-height: 64px;
+}
+
+.float-right {
+  float: right;
+}
+
