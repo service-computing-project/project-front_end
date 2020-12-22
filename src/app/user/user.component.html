@@ -13,6 +13,13 @@
     </div>
   </div>
   <div class="blogListContainer">
+    <div class="notificationContainer">
+      <div class="notificationCard" *ngFor="let notification of notifications">
+        <p class="targetUser">{{notification.User.Name}}：</p>
+        <p class="content">{{notification.Data.Content}}</p>
+        <p class="createTime">{{notification.Data.CreateTime}}</p>
+      </div>
+    </div>
     <nz-tabset>
       <nz-tab nzTitle="Blog List">
         <div class="blogContainer" *ngIf="userBlogData">
