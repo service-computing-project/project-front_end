@@ -18,7 +18,6 @@ export class LoginService {
       username: usr,
       password: pass
     };
-    // this.cookieService.set("userName", usr, new Date(new Date().getTime()));
     return this.http.post<any>(this.loginReqUrl, postData);
   }
 }
