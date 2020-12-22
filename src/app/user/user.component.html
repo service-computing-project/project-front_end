@@ -37,8 +37,8 @@
         <div class="notificationContainer" *ngIf="userNotifications">
           <div class="notificationCard" *ngFor="let notification of userNotifications">
             <p class="targetUser">{{notification.User.Name}}：</p>
-            <p class="content">{{notification.Notification.Content}}</p>
-            <p class="createTime">{{notification.Notification.CreateTime}}</p>
+            <!-- <p class="content">{{notification.Notification.Content}}</p>
+            <p class="createTime">{{notification.Notification.CreateTime}}</p> -->
             <i nz-icon [nzType]="'delete'" class="delNotification"></i>
           </div>
         </div>

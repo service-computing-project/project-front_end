@@ -60,6 +60,9 @@ export class UserComponent implements OnInit {
       this.userNotificationData = res;
       this.userNotifications = res.Notifications;
       console.log(res);
+      console.log(res.Notifications);
+      console.log(res.Notifications[0]);
+      console.log(res.Notifications[0].Content);
     });
   }
 
