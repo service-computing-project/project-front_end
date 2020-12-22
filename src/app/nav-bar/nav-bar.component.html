@@ -8,19 +8,19 @@
             <a routerLinkActive="active" routerLink="/"><img src="https://cdn.jsdelivr.net/gh/sherryjw/StaticResource@master/image/logo-03.png" height="50"></a>
           </li>
           <li nz-menu-item *ngIf="isLogin()" class="float-right">
-            <a (click)="jumpToUser()" routerLinkActive="active" class="userEntrance">
-              <span>个人主页</span>
+            <a (click)="logOut()" routerLinkActive="active" class="logoutEntrance">
+              <span>退出登录</span>
             </a>
           </li>
           <li nz-menu-item *ngIf="isLogin()" class="float-right">
-            <a (click)="logOut()" routerLinkActive="active" class="logoutEntrance">
-              <span>退出登录</span>
+            <a (click)="jumpToUser()" routerLinkActive="active" class="userEntrance">
+              <span>个人主页</span>
             </a>
           </li>
           <li nz-menu-item *ngIf="!isLogin() && showBar()" class="float-right">
             <button nz-button (click)="jumpToLogin()" class="login"><span>登录/注册</span></button>
           </li>
-          <li nz-menu-item class="float-right">
+          <li nz-menu-item class="float-right" *ngIf="showBar()">
             <app-new-content-editor-button></app-new-content-editor-button>
           </li>
         </ul>
