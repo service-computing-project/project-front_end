@@ -152,8 +152,8 @@ export class HomeComponent implements OnInit {
   handleEditOk(): void {
     this.isEditOkLoading = true;
     let form = this.form.value;
-    if (form) {
-      if (form.length) {
+    if (form.tags) {
+      if (form.tags.length) {
         form.tags = this.splitTags(form.tags);
       }
     }
