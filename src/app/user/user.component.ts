@@ -40,6 +40,9 @@ export class UserComponent implements OnInit {
   isEditOkLoading: boolean;
   form: FormGroup;
 
+  isDeleteVisible: boolean;
+  isDeleteOkLoading: boolean;
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id');
@@ -124,6 +127,24 @@ export class UserComponent implements OnInit {
     this.isEditVisible = false;
   }
 
+  showDeleteModal(): void {
+    this.isDeleteVisible = true;
+  }
+
+  deleteNotification(note: NotificationEntity): void {    // 刷新？
+    let id = note.Notification.ID;
+    this.userService.deleteNotification(id).subscribe(res => {
+      console.log(res);
+    })
+    this.getNotification();
+    this.isDeleteVisible = false
+    console.log("deleteConfirm!");
+  }
+
+  deleteCancel(): void {
+    this.isDeleteVisible = false;
+  }
+
   getNotification(): void {
     this.userService.getNotification().subscribe(res => {
       this.userNotificationData = res;
@@ -138,15 +159,6 @@ export class UserComponent implements OnInit {
       this.userBlogData = res.Data;
       console.log(res);
     });
-  }
-
-  deleteNotification(note: NotificationEntity): void {    // 刷新？
-    let id = note.Notification.ID;
-    this.userService.deleteNotification(id).subscribe(res => {
-      console.log(res);
-    })
-    this.getNotification();
-    console.log("deleteConfirm!");
   }
 
   jumpToBlog(blog: BlogDataEntity): void {
@@ -177,10 +189,6 @@ export class UserComponent implements OnInit {
       )
       .onClick.subscribe(() => {
       });
-  }
-
-  deleteCancel(): void {
-    console.log("deleteCancel!");
   }
 
   isBoy() {
