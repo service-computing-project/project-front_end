@@ -25,11 +25,17 @@ export class UserService {
   public getNotification(): Observable<UserNotificationEntity> {
     console.log(this.notificationBaseUrl);
     return this.http.get<UserNotificationEntity>(this.notificationBaseUrl);
-  }
+  }blog
 
   public getUserBlog(id: string, pageId: number, pageSize: number): Observable<UserBlogEntity> {
     let blogUrl = this.blogBaseUrl + id;
     console.log(blogUrl);
-    return this.http.get<UserBlogEntity>(blogUrl);
+    return this.http.get<UserBlogEntity>(blogUrl,
+    {
+      params: {
+        page: `${pageId}`,
+        per_page: `${pageSize}`,
+      }
+    });
   }
 }
