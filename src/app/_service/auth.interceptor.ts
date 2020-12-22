@@ -14,9 +14,9 @@ export class AuthInterceptor implements HttpInterceptor {
       const newReq = req.clone({
         withCredentials: true,
         // headers: req.headers.set('Authorization', currentUser.Data)
-        setHeaders: {
-          Authorization: `${currentUser.Data}`
-        }
+        // setHeaders: {
+        //   Authorization: `${currentUser.Data}`
+        // }
       });
       console.log(newReq);
       return next.handle(newReq);
