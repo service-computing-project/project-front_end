@@ -24,6 +24,8 @@ export class ContentComponent implements OnInit {
   isLiked: boolean;
   form: FormGroup;
   isEditable: boolean;
+  visibleRangeValues: string[] = ['公开', '仅自己可见'];    // 编辑博客表单中可见范围的可选值
+  visibleRangeValue: string = this.visibleRangeValues[0];  // 编辑博客表单中可见范围的选中值
 
   constructor(
     private readonly contentService: ContentService,
@@ -35,7 +37,9 @@ export class ContentComponent implements OnInit {
     private notification: NzNotificationService
   ) {
     this.form = this.formBuilder.group({
-      content: [null, [Validators.maxLength(140)]]
+      content: [null, [Validators.maxLength(140)]],
+      tags: [null],
+      visibleRange: this.visibleRangeValues[0]
     });
   }
 
@@ -50,7 +54,6 @@ export class ContentComponent implements OnInit {
       console.log('content id', this.contentId);
       this.flushData();
       this.isLikedByUser();
-
     });
   }
 
@@ -89,28 +92,72 @@ export class ContentComponent implements OnInit {
       });
   }
 
+  createUpdateOkNotification(): void {
+    this.notification
+      .blank(
+        '提示',
+        '编辑成功',
+        { nzDuration: 2000 }
+      )
+      .onClick.subscribe(() => {
+      });
+  }
+
+  createUpdateFailedNotification(): void {
+    this.notification
+      .blank(
+        '提示',
+        '编辑失败',
+        { nzDuration: 2000 }
+      )
+      .onClick.subscribe(() => {
+      });
+  }
+
   showEditModal(): void {
+    let range = this.contentDetail.Public ? this.visibleRangeValues[0] : this.visibleRangeValues[1];
+    let tags_str = this.concatTags(this.contentDetail.Tag);
+    this.form.setValue(
+      {
+        content: this.contentDetail.Detail,
+        tags: tags_str,
+        visibleRange: range
+      }
+    );
     this.isEditVisible = true;
-    this.form.setValue({content: this.contentDetail.Detail});
   }
 
   handleEditOk(): void {
-    let form = this.form.value;
     this.isEditOkLoading = true;
+    let form = this.form.value;
+    form.tags = this.splitTags(form.tags);
+    let isPublic = form.visibleRange === '公开' ? true : false;
     console.log('form before update post', this.form.value);
     this.contentService.
-      updatePost(this.contentId, form.content, this.contentDetail.Tag, this.contentDetail.Public)
-      .subscribe(data => {
-        console.log('update post response', data);
-        if (data.State === 'success') {
-          this.contentDetail.Detail = form.content;
+      updatePost(this.contentId, form.content, form.tags, isPublic)
+      .subscribe(
+        data => {
+          console.log('update post response', data);
+          if (data.State === 'success') {
+            this.createUpdateOkNotification();
+            this.isEditVisible = false;
+            this.isEditOkLoading = false;
+            this.flushData();
+          }
+          else {
+            console.log('update post response error state:', data.State);
+            this.createUpdateFailedNotification();
+            this.isEditVisible = false;
+            this.isEditOkLoading = false;
+          }
+        },
+        error => {
+          console.log('update post error:',error);
+          this.createUpdateFailedNotification();
+          this.isEditVisible = false;
+          this.isEditOkLoading = false;
         }
-      })
-    setTimeout(() => {
-      this.isEditVisible = false;
-      this.isEditOkLoading = false;
-      // this.flushData();
-    }, 100);
+      )
   }
 
   handleEditCancel(): void {
@@ -213,6 +260,14 @@ export class ContentComponent implements OnInit {
   sliceTagName(tag: string): string {
     const isLongTag = tag.length > 20;
     return isLongTag ? `${tag.slice(0, 20)}...` : tag;
+  }
+
+  concatTags(tags: string[]): string {
+    return `#${tags.join('#')}`;
+  }
+
+  splitTags(tags: string): string[] {
+    return tags.split('#').filter(data=>{ return data != '';});
   }
 
   showDeleteConfirm(): void {
