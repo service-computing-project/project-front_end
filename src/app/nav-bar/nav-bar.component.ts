@@ -11,9 +11,7 @@ import { UserService } from '../user/user.service';
 })
 export class NavBarComponent implements OnInit {
 
-  isVisible = false;
-  isLoginStatus = false;
-  userId: string;
+  // subscription: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -21,10 +19,22 @@ export class NavBarComponent implements OnInit {
     private location: Location,
     private readonly navBarService: NavBarService,
     private readonly userService: UserService) {
-    }
+
+  }
+
+  isVisible = false;
+  isLoginStatus = false;
+  userId: string;
 
   ngOnInit(): void {
+    // this.subscription = this.router.events.pipe().subscribe();
   }
+
+  // ngOnDestroy(): void {
+  //   if (this.subscription) {
+  //     this.subscription.unsubscribe();
+  //   }
+  // }
 
   isLogin(){
     return localStorage.getItem('currentUser');
@@ -34,7 +44,10 @@ export class NavBarComponent implements OnInit {
     this.userService.getUserInfo("self").subscribe(res =>{
       this.userId = res.ID;
       console.log(this.userId);
-      this.router.navigate(['/user/'+this.userId]);
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigateByUrl('/user'+this.userId).then(() => {
+        this.router.navigate(['/user/'+this.userId]);
+      });
     });
   }
 
