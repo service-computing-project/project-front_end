@@ -65,7 +65,7 @@ export class UserComponent implements OnInit {
   }
 
   getBlogs(pageId: number, pageSize: number): void {
-    this.userService.getUserBlog(pageId, pageSize).subscribe(res => {
+    this.userService.getUserBlog(this.userId, pageId, pageSize).subscribe(res => {
       console.log(res);
     });
   }
