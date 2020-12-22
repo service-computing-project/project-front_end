@@ -47,7 +47,7 @@
           color: gray;
           float: right;
         }
-        .delNotification {
+        .isPublic, .delNotification {
           margin-left: 10px;
           color: #bfbfbf;
         }
@@ -59,6 +59,10 @@
         margin: 20px auto;
         width: 90%;
         box-shadow: 0 2px 4px 0 #bfbfbf;
+        .publishDate {
+          color: #bfbfbf;
+          float: right;
+        }
         .blogContent {
           display: block;
           line-clamp: 5; /*多行文本 溢出部分...*/
@@ -68,6 +72,18 @@
         .isPublic {
           color: #bfbfbf;
         }
+      }
+      .pageButtons {
+        text-align: center;
+      }
+
+      [nz-button] {
+        margin-right: 8px;
+        margin-top: 12px;
+      }
+
+      nz-button-group [nz-button] {
+        margin-right: 0;
       }
     }
     .notificationContainer, .blogContainer {

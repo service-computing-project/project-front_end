@@ -3,8 +3,8 @@
     <nz-layout>
       <nz-header>
         <a routerLinkActive="active" routerLink="/"><img src="https://cdn.jsdelivr.net/gh/sherryjw/StaticResource@master/image/logo-03.png" height="50"></a>
+        <!-- <a routerLinkActive="active" routerLink="/" class="homeEntrance"><span>首页</span></a> -->
         <div class="user" *ngIf="isLogin()">
-          <img src="">
           <a (click)="jumpToUser()" routerLinkActive="active" class="userEntrance">
             <span>个人主页</span>
           </a>

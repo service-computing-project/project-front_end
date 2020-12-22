@@ -15,12 +15,11 @@ export class UserService {
   private userBaseUrl = apiUrl + 'api/user/info/';
   private notificationBaseUrl = apiUrl + 'api/notification/';
   private blogBaseUrl = apiUrl + 'api/content/texts/';
+  private userUpdateBaseUrl = apiUrl + 'api/user/name';
 
   public getUserInfo(id: string): Observable<UserInfoEntity> {
     let userUrl = this.userBaseUrl + id;
-    // console.log(userUrl);
     return this.http.get<UserInfoEntity>(userUrl);
-    // return this.http.get<UserInfoEntity>(userUrl, {headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})});
   }
 
   public getNotification(): Observable<UserNotificationEntity> {
@@ -45,5 +44,9 @@ export class UserService {
         per_page: `${pageSize}`,
       }
     });
+  }
+
+  public updateUsernamePost(newName: string) {
+    return this.http.post<any>(this.userUpdateBaseUrl, {name: newName});
   }
 }
