@@ -31,7 +31,7 @@ export interface BlogDataEntity {
 
 export interface UserNotificationEntity {
   State: string;
-  Notification: NotificationEntity[];
+  Notifications: NotificationEntity[];
 }
 
 export interface NotificationEntity {
