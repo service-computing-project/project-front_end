@@ -65,6 +65,9 @@
           box-orient: vertical; /*从上向下垂直排列*/
           overflow: hidden;
         }
+        .isPublic {
+          color: #bfbfbf;
+        }
       }
     }
     .notificationContainer, .blogContainer {
