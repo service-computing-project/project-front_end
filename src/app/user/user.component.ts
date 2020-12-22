@@ -105,8 +105,6 @@ export class UserComponent implements OnInit {
       this.userNotifications = res.Notifications;
       console.log(res);
       console.log(res.Notifications);
-      console.log(res.Notifications[0].Notification);
-      console.log(res.Notifications[0].Notification.Content);
     });
   }
 
@@ -133,7 +131,7 @@ export class UserComponent implements OnInit {
     this.notification
       .blank(
         'Notification',
-        '修改成功',
+        '修改成功!',
         {
           nzPlacement: 'bottomRight'
         }
@@ -145,14 +143,22 @@ export class UserComponent implements OnInit {
   createFailNotification(): void {
     this.notification
       .blank(
-        'Notification',
-        '用户名已存在',
+        'Error',
+        '用户名已存在！',
         {
           nzPlacement: 'bottomRight'
         }
       )
       .onClick.subscribe(() => {
       });
+  }
+
+  deleteConfirm(note: NotificationEntity): void {
+    this.deleteNotification(note);
+  }
+
+  deleteCancel(): void {
+
   }
 
   isBoy() {

@@ -55,11 +55,21 @@
       <nz-tab nzTitle="Notification Center">
         <div class="notificationContainer" *ngIf="userNotifications != null">
           <div class="notificationCard" *ngFor="let notification of userNotifications">
-            <p class="targetUser">{{notification.User.Name}}：</p>
+            <p class="targetUser">From {{notification.User.Name}}</p>
             <p class="content">{{notification.Notification.Content}}</p>
             <p class="createTime">
               {{notification.Notification.CreateTime | date:'yyyy-MM-dd HH:mm:ss'}}
-              <i nz-icon [nzType]="'delete'" class="delNotification" (click)="deleteNotification(notification)"></i>
+              <a
+                nz-popconfirm
+                nzPopconfirmTitle="Are you sure delete this task?"
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="deleteConfirm(notification)"
+                (nzOnCancel)="deleteCancel()"
+                >
+                <i nz-icon [nzType]="'delete'" class="delNotification"></i>
+                <!-- <i nz-icon [nzType]="'delete'" class="delNotification" (click)="deleteNotification(notification)"></i> -->
+              </a>
+
             </p>
           </div>
         </div>
