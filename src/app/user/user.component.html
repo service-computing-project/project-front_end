@@ -4,7 +4,7 @@
       <img src="{{userInfoData.Info.Avatar}}" style="width:100px; height:100px; border-radius:50%; border:1px solid #484848">
     </div>
     <div class="userInfo" *ngIf="userInfoData">
-      <p class="name" align="center">{{userInfoData.Info.Name}}</p>
+      <p class="name" align="center">{{userInfoData.Info.Name}}<i nz-icon [nzType]="'edit'"></i></p>
       <p class="bio">{{userInfoData.Info.Bio}}</p>
       <p class="gender" *ngIf="isBoy()"><i nz-icon [nzType]="'man'"></i></p>
       <p class="gender" *ngIf="!isBoy()"><i nz-icon [nzType]="'woman'"></i></p>
@@ -14,32 +14,32 @@
   </div>
   <div class="blogListContainer">
     <div class="notificationContainer">
-      <div class="notificationCard" *ngFor="let notification of notifications">
+      <!-- <div class="notificationCard" *ngFor="let notification of notifications">
         <p class="targetUser">{{notification.User.Name}}：</p>
         <p class="content">{{notification.Data.Content}}</p>
         <p class="createTime">{{notification.Data.CreateTime}}</p>
-      </div>
+      </div> -->
     </div>
     <nz-tabset>
       <nz-tab nzTitle="Blog List">
         <div class="blogContainer" *ngIf="userBlogData">
           <div class="blogCard" *ngFor="let blog of userBlogData">
-            <p>ppp</p>
+            <p>{{ blog.ID }}</p>
           </div>
         </div>
-        <!-- <div class="blogContainer" *ngIf="userBlogData.length==0">
+        <div class="blogContainer" *ngIf="userBlogData && userBlogData.length==0">
           <nz-empty [nzNotFoundContent]="notFoundContent">
             <ng-template #notFoundContent><span>  </span></ng-template>
           </nz-empty>
-        </div> -->
+        </div>
       </nz-tab>
       <nz-tab nzTitle="Notification Center">
         <div class="notificationContainer">
-          <div class="notificationCard" *ngFor="let notification of notifications">
+          <!-- <div class="notificationCard" *ngFor="let notification of notifications">
             <p class="targetUser">{{notification.User.Name}}：</p>
             <p class="content">{{notification.Data.Content}}</p>
             <p class="createTime">{{notification.Data.CreateTime}}</p>
-          </div>
+          </div> -->
         </div>
         <!-- <div class="notificationContainer" *ngIf="userNotificationData && userNotificationData.Notification.length==0">
           <nz-empty [nzNotFoundContent]="notFoundContent">

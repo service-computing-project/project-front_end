@@ -18,7 +18,7 @@ export class UserComponent implements OnInit {
   ) { }
 
   userInfoData: UserInfoEntity;
-  userBlogData: UserBlogEntity;
+  userBlogData: BlogDataEntity[];
   userNotificationData: UserNotificationEntity;
   userId: string;
 
@@ -69,6 +69,7 @@ export class UserComponent implements OnInit {
 
   getBlogs(pageId: number, pageSize: number): void {
     this.userService.getUserBlog(this.userId, pageId, pageSize).subscribe(res => {
+      this.userBlogData = res.Data;
       console.log(res);
     });
   }
