@@ -13,11 +13,20 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  public postLogin(usr: string, pass: string) {
+  public postLogin(usr: string, pass: string): Observable<any> {
     let postData = {
       username: usr,
       password: pass
     };
-    return this.http.post<any>(this.loginReqUrl, postData);
+    return this.http.post<any>(this.loginReqUrl, postData).pipe(map(
+      user => {
+        console.log(user);
+        if (user && user.Data) {
+          console.log(JSON.stringify(user));
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+        return user;
+      }
+    ));
   }
 }

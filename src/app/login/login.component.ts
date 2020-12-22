@@ -6,7 +6,6 @@ import { apiUrl } from '../app.config';
 import { LoginService } from '../login/login.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { UserService } from '../user/user.service';
-import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-login',
@@ -34,46 +33,32 @@ export class LoginComponent implements OnInit {
   login() {
     localStorage.removeItem('currentUser');
     this.loading = true;
-    this.loginService.postLogin(this.model.username, this.model.password).map(
-      user => {
-        console.log(user);
-        if (user && user.Data) {
-          console.log(JSON.stringify(user));
-          localStorage.setItem('currentUser', JSON.stringify(user));
+    this.loginService.postLogin(this.model.username, this.model.password).subscribe(
+      data => {
+        console.log(data);
+        if(data.State == 'success') {
+          console.log(JSON.stringify(this.model));
+          localStorage.setItem('currentUser', this.model.username);//JSON.stringify(this.model)
 
-          // to be modified
           this.createSuccessNotification();
           this.router.navigate(['/home']);
         }
-        return user;
+        else {
+          if (data.State == 'username_notexist') {
+            this.wrongState = 'Username Not Exist!';
+          }
+          else if (data.State == 'password_error') {
+            this.wrongState = 'Wrong Password!';
+          }
+          this.createFailNotification();
+          this.loading = false;
+        }
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
       }
     );
-    // this.loginService.postLogin(this.model.username, this.model.password).subscribe(
-    //   data => {
-    //     console.log(data);
-    //     if(data.State == 'success') {
-    //       console.log(JSON.stringify(this.model));
-    //       localStorage.setItem('currentUser', this.model.username);//JSON.stringify(this.model)
-
-    //       this.createSuccessNotification();
-    //       this.router.navigate(['/home']);
-    //     }
-    //     else {
-    //       if (data.State == 'username_notexist') {
-    //         this.wrongState = 'Username Not Exist!';
-    //       }
-    //       else if (data.State == 'password_error') {
-    //         this.wrongState = 'Wrong Password!';
-    //       }
-    //       this.createFailNotification();
-    //       this.loading = false;
-    //     }
-    //   },
-    //   error => {
-    //     console.log(error);
-    //     this.loading = false;
-    //   }
-    // );
   }
 
   createSuccessNotification(): void {
