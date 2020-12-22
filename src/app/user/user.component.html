@@ -37,7 +37,7 @@
   <div class="blogListContainer">
     <nz-tabset>
       <nz-tab nzTitle="Blog List">
-        <div class="blogContainer" *ngIf="userBlogData">
+        <div class="blogContainer" *ngIf="userBlogData != null">
           <div class="blogCard" *ngFor="let blog of userBlogData" (click)="jumpToBlog(blog)">
             <p class="blogContent">{{ blog.Detail }}</p>
             <p class="publishDate">
@@ -53,7 +53,7 @@
         </div>
       </nz-tab>
       <nz-tab nzTitle="Notification Center">
-        <div class="notificationContainer" *ngIf="userNotifications">
+        <div class="notificationContainer" *ngIf="userNotifications != null">
           <div class="notificationCard" *ngFor="let notification of userNotifications">
             <p class="targetUser">{{notification.User.Name}}：</p>
             <p class="content">{{notification.Notification.Content}}</p>

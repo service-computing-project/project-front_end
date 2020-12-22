@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { UserInfoEntity, InfoEntity, UserBlogEntity, BlogDataEntity, UserNotificationEntity, NotificationEntity } from './user.entity';
 import { UserService } from './user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
   selector: 'app-user',
@@ -17,6 +18,7 @@ export class UserComponent implements OnInit {
     private router: Router,
     private readonly userService: UserService,
     private formBuilder: FormBuilder,
+    private notification: NzNotificationService
   ) {
     this.form = this.formBuilder.group({
       content: [null, [Validators.maxLength(140)]]
@@ -81,8 +83,12 @@ export class UserComponent implements OnInit {
         console.log('update post response', data);
         if (data.State === 'success') {
           this.userInfoData.Info.Name = form.content;
+          this.createSuccessNotification();
         }
-      })
+        else {
+          this.createFailNotification();
+        }
+    });
     setTimeout(() => {
       this.isEditVisible = false;
       this.isEditOkLoading = false;
@@ -121,6 +127,32 @@ export class UserComponent implements OnInit {
 
   jumpToBlog(blog: BlogDataEntity): void {
     this.router.navigate(['/content', blog.ID]);
+  }
+
+  createSuccessNotification(): void {
+    this.notification
+      .blank(
+        'Notification',
+        '修改成功',
+        {
+          nzPlacement: 'bottomRight'
+        }
+      )
+      .onClick.subscribe(() => {
+      });
+  }
+
+  createFailNotification(): void {
+    this.notification
+      .blank(
+        'Notification',
+        '用户名已存在',
+        {
+          nzPlacement: 'bottomRight'
+        }
+      )
+      .onClick.subscribe(() => {
+      });
   }
 
   isBoy() {
