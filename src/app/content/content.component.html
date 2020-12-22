@@ -56,25 +56,48 @@
         <ng-template #actionEllipsis>
           <i nz-icon nzType="ellipsis"></i>
         </ng-template>
-        <nz-modal
-          [(nzVisible)]="isEditVisible"
-          nzTitle="编辑"
-          nzOkText="确认"
-          nzCancelText="取消"
-          (nzOnCancel)="handleEditCancel()"
-          (nzOnOk)="handleEditOk()"
-          [nzOkLoading]="isEditOkLoading"
-        >
-          <form nz-form [formGroup]="form" nzLayout="vertical">
-            <nz-form-item>
-              <nz-form-control>
-                <!-- <nz-textarea-count [nzMaxCharacterCount]="140"> -->
-                  <textarea rows="4" formControlName="content" nz-input></textarea>
-                <!-- </nz-textarea-count> -->
-              </nz-form-control>
-            </nz-form-item>
-          </form>
-        </nz-modal>
+        <div>
+          <nz-modal
+            [(nzVisible)]="isEditVisible"
+            nzTitle="编辑"
+            nzOkText="确认"
+            nzCancelText="取消"
+            (nzOnCancel)="handleEditCancel()"
+            (nzOnOk)="handleEditOk()"
+            [nzOkLoading]="isEditOkLoading"
+          >
+            <form nz-form [formGroup]="form" nzLayout="vertical">
+              <nz-form-item>
+                <nz-form-control>
+                  <!-- <nz-textarea-count [nzMaxCharacterCount]="140"> -->
+                    <textarea rows="4" formControlName="content" nz-input></textarea>
+                  <!-- </nz-textarea-count> -->
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control>
+                  <input
+                    formControlName="tags"
+                    #inputElement
+                    nz-input
+                    nz-tooltip
+                    nzTooltipTrigger="focus"
+                    nzTooltipPlacement="topLeft"
+                    nzTooltipTitle="每个标签前用'#'分隔，例：#tag1#tag2#tag3"
+                    placeholder="每个标签前用'#'分隔，例：#tag1#tag2#tag3"
+                  />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control>
+                  <nz-radio-group formControlName="visibleRange" [(ngModel)]="visibleRangeValue">
+                    <label *ngFor="let val of visibleRangeValues" nz-radio [nzValue]="val">{{val}}</label>
+                  </nz-radio-group>
+                </nz-form-control>
+              </nz-form-item>
+            </form>
+          </nz-modal>
+        </div>
       </div>
     </div>
   </div>

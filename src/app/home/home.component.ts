@@ -57,6 +57,9 @@ export class HomeComponent implements OnInit {
             if (data.Data.length < size) {
               this.isLastPage = true;
             }
+            else {
+              this.isLastPage = false;
+            }
             console.log('getPublicDataByPage response for page', this.currentPageId, data);
             console.log('this.allData', this.publicContents);
           }
@@ -81,7 +84,7 @@ export class HomeComponent implements OnInit {
     return tags.split('#').filter(data=>{ return data != '';});
   }
 
-  isLikedByUser(contentId: string, index: number) {
+  isLikedByUser(contentId: string, index: number): void {
     this.contentService
       .getAllLikeUsers(contentId)
       .subscribe(
@@ -118,7 +121,7 @@ export class HomeComponent implements OnInit {
   createSendOkNotification(): void {
     this.notification
       .blank(
-        '成功',
+        '提示',
         '发送成功',
         { nzDuration: 2000 }
       )
@@ -129,7 +132,7 @@ export class HomeComponent implements OnInit {
   createSendFailedNotification(): void {
     this.notification
       .blank(
-        '失败',
+        '提示',
         '发送失败',
         { nzDuration: 2000 }
       )
@@ -138,44 +141,44 @@ export class HomeComponent implements OnInit {
   }
 
   showEditModal(): void {
-    this.isEditVisible = true;
+    if (localStorage.getItem('currentUsername')) {
+      this.isEditVisible = true;
+    }
+    else {
+      this.createNoLoginNotification();
+    }
   }
 
   handleEditOk(): void {
     this.isEditOkLoading = true;
     let form = this.form.value;
     form.tags = this.splitTags(form.tags);
-    form.visibleRange = form.visibleRange === '公开' ? true : false;
+    let isPublic = form.visibleRange === '公开' ? true : false;
     console.log('form before send new post', form);
     this.homeService.
-      sendNewPost(form.content, form.tags, form.visibleRange)
+      sendNewPost(form.content, form.tags, isPublic)
       .subscribe(
         data => {
           console.log('send new post response', data);
           if (data.State === 'success') {
             this.createSendOkNotification();
-            setTimeout(() => {
-              this.isEditVisible = false;
-              this.isEditOkLoading = false;
-              this.getPage(1, this.pageSize);
-            }, 1000);
+            this.isEditVisible = false;
+            this.isEditOkLoading = false;
+            this.getPage(1, this.pageSize);
+            this.form.reset();
           }
           else {
             console.log('send new post response error state:', data.State);
             this.createSendFailedNotification();
-            setTimeout(() => {
-              this.isEditVisible = false;
-              this.isEditOkLoading = false;
-            }, 1000);
+            this.isEditVisible = false;
+            this.isEditOkLoading = false;
           }
         },
         error => {
           console.log('send new post error:',error);
           this.createSendFailedNotification();
-            setTimeout(() => {
-              this.isEditVisible = false;
-              this.isEditOkLoading = false;
-            }, 1000);
+          this.isEditVisible = false;
+          this.isEditOkLoading = false;
         }
       )
   }
@@ -184,7 +187,7 @@ export class HomeComponent implements OnInit {
     this.isEditVisible = false;
   }
 
-  likeContent(contentID: string, itemIndex: number) {
+  likeContent(contentID: string, itemIndex: number): void {
     this.contentService
       .likePost(contentID)
       .subscribe(
@@ -207,7 +210,7 @@ export class HomeComponent implements OnInit {
       );
   }
 
-  unlikeContent(contentID: string, itemIndex: number) {
+  unlikeContent(contentID: string, itemIndex: number): void {
     this.contentService
       .unlikePost(contentID)
       .subscribe(
