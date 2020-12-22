@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     this.loginService.postLogin(this.model.username, this.model.password).subscribe(
       user => {
         console.log(user);
-        if (user && user.token) {
+        if (user && user.Data) {
           console.log("ok");
           localStorage.setItem('currentUser', JSON.stringify(user));
 
