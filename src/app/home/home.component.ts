@@ -57,6 +57,9 @@ export class HomeComponent implements OnInit {
             if (data.Data.length < size) {
               this.isLastPage = true;
             }
+            else {
+              this.isLastPage = false;
+            }
             console.log('getPublicDataByPage response for page', this.currentPageId, data);
             console.log('this.allData', this.publicContents);
           }
