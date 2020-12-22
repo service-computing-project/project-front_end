@@ -75,16 +75,20 @@ export class HomeComponent implements OnInit {
     return isLongTag ? `${tag.slice(0, 20)}...` : tag;
   }
 
+  splitTags(tags: string): string[] {
+    return tags.split('#').filter(data=>{ return data != '';});
+  }
+
   isLikedByUser(contentId: string, index: number) {
     this.contentService
       .getAllLikeUsers(contentId)
       .subscribe(
         data => {
           console.log('get like response', data);
-          console.log('currentUser', localStorage.getItem('currentUser'));
+          console.log('currentUser', localStorage.getItem('currentUsername'));
           if (data.State === 'success') {
             for (let i = 0; i < data.Data.length; i++) {
-              if (data.Data[i] === localStorage.getItem('currentUser')) {
+              if (data.Data[i] === localStorage.getItem('currentUsername')) {
                 this.publicContents[index].isLiked = true;
               }
             }
