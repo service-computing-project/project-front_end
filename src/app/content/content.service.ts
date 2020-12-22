@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ContentDetailRes, UpdatePostReq, UpdatePostRes, LikePostRes, DeletePostRes, LikeGetRes } from './content.entity'
+import { NewPostReq, NewPostRes } from '../home/home.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -55,5 +56,15 @@ export class ContentService {
     let url = `${this.reqUrl}api/like/${contentID}`;
     console.log('get likes url', url);
     return this.http.get<LikeGetRes>(url);
+  }
+
+  public sendNewPost(p_detail: string, p_tags: string[], p_is_public: boolean) {
+    let url = `${this.reqUrl}api/content/text`;
+    let postData: NewPostReq = {
+      detail: p_detail,
+      tags: p_tags,
+      isPublic: p_is_public
+    };
+    return this.http.post<NewPostRes>(url, postData);
   }
 }

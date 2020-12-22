@@ -59,6 +59,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { NewContentEditorComponent } from './new-content-editor/new-content-editor.component';
 
 registerLocaleData(en);
 
@@ -110,7 +111,8 @@ const nzSharedModules = [
     UserComponent,
     ErrorComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NewContentEditorComponent
   ],
   imports: [
     BrowserModule,
