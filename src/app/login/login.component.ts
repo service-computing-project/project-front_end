@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     this.loginService.postLogin(this.model.username, this.model.password).subscribe(
       user => {
         console.log(user);
-        if (user && user.Data) {
+        if (user.State == 'success' && user.Data) {
           console.log(JSON.stringify(user));
           localStorage.setItem('currentUser', JSON.stringify(user));
 
@@ -45,6 +45,20 @@ export class LoginComponent implements OnInit {
           this.createSuccessNotification();
           this.router.navigate(['/home']);
         }
+        else {
+          if (user.State == 'username_notexist') {
+            this.wrongState = 'Username Not Exist!';
+          }
+          else if (user.State == 'password_error') {
+            this.wrongState = 'Wrong Password!';
+          }
+          this.createFailNotification();
+          this.loading = false;
+        }
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
       }
     );
     // this.loginService.postLogin(this.model.username, this.model.password).subscribe(

@@ -25,21 +25,5 @@ export class AuthInterceptor implements HttpInterceptor {
     }
     console.log(req);
     return next.handle(req);
-
-    // let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    // console.log(req);
-    // console.log(currentUser);
-    // if (currentUser && currentUser.Data) {
-    //   const newReq = req.clone({
-    //     withCredentials: true,
-    //     setHeaders: {
-    //       Authorization: `${currentUser.Data}`
-    //     }
-    //   });
-    //   console.log(newReq);
-    //   return next.handle(newReq);
-    // }
-    // console.log("After");
-    // return next.handle(req);
   }
 }
