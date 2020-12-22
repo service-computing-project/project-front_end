@@ -14,17 +14,17 @@ export interface InfoEntity {
 
 export interface UserBlogEntity {
   State: string;
-  Data: BlogDataEntity;
+  Data: BlogDataEntity[];
 }
 
 export interface BlogDataEntity {
   ID: string;
-  Name: string;
+  // Name: string;
   Detail: string;
   OwnID: string;
-  PublishData: string; //number ?
+  PublishData: number;
   LikeNum: number;
-  CommentNum: number;
+  // CommentNum: number;
   Public: boolean;
   Tag: string[];
 }
@@ -35,13 +35,13 @@ export interface UserNotificationEntity {
 }
 
 export interface NotificationEntity {
-  Data: NotificationDataEntity;
+  Notification: NotificationDataEntity;
   User: NotificationUserEntity;
 }
 
 export interface NotificationDataEntity {
   ID: string;
-  CreateTime: string;
+  CreateTime: number;
   Content: string;
   SourceID: string;
   TargetID: string;

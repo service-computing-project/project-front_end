@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'
-import { UserInfoEntity, InfoEntity, UserBlogEntity, BlogDataEntity, UserNotificationEntity } from './user.entity';
+import { UserInfoEntity, InfoEntity, UserBlogEntity, BlogDataEntity, UserNotificationEntity, NotificationEntity } from './user.entity';
 import { UserService } from './user.service';
 
 @Component({
@@ -18,11 +18,10 @@ export class UserComponent implements OnInit {
   ) { }
 
   userInfoData: UserInfoEntity;
-  userBlogData: UserBlogEntity;
-  userNotificationData: UserNotificationEntity;
+  userBlogData: BlogDataEntity[];
+  userNotificationData: UserNotificationEntity; //如果查看的页不是当前用户 那么不能显示通知
+  userNotifications: NotificationEntity[];
   userId: string;
-
-  notifications: any[];
 
   currentPageId: number;
   pageSize: number;
@@ -34,16 +33,17 @@ export class UserComponent implements OnInit {
     });
     this.flushData();
 
+    // 如果查看的页不是当前用户 那么不能显示通知
     // var currentUser = localStorage.getItem('currentUser');
     // if(currentUser) {
     //   console.log(currentUser);
     // }
-    this.getNotification();
 
     this.currentPageId = 1;
     this.pageSize = 2;
     this.isLastPage = false;
     this.getBlogs(this.currentPageId, this.pageSize);
+    this.getNotification();
   }
 
   flushData(): void {
@@ -58,21 +58,35 @@ export class UserComponent implements OnInit {
   getNotification(): void {
     this.userService.getNotification().subscribe(res => {
       this.userNotificationData = res;
-      this.notifications = res.Notifications;
+      this.userNotifications = res.Notifications;
+      console.log(res);
+      console.log(res.Notifications);
+      console.log(res.Notifications[0].Notification);
+      console.log(res.Notifications[0].Notification.Content);
+    });
+  }
+
+  getBlogs(pageId: number, pageSize: number): void {
+    this.userService.getUserBlog(this.userId, pageId, pageSize).subscribe(res => {
+      this.userBlogData = res.Data;
       console.log(res);
     });
+  }
+
+  deleteNotification(note: NotificationEntity): void {    // 刷新？
+    let id = note.Notification.ID;
+    this.userService.deleteNotification(id).subscribe(res => {
+      console.log(res);
+    })
+    this.getNotification();
+  }
+
+  jumpToBlog(blog: BlogDataEntity): void {
+    this.router.navigate(['/content', blog.ID]);
   }
 
   isBoy() {
     return this.userInfoData.Info.Gender == 0;
   }
-
-  getBlogs(pageId: number, pageSize: number): void {
-    this.userService.getUserBlog(this.userId, pageId, pageSize).subscribe(res => {
-      console.log(res);
-    });
-  }
-
-
 
 }
