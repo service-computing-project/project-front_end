@@ -28,12 +28,6 @@ export class UserService {
 
   public getUserBlog(id: string, pageId: number, pageSize: number): Observable<UserBlogEntity> {
     let blogUrl = this.blogBaseUrl + id;
-    return this.http.get<UserBlogEntity>(blogUrl,
-    {
-      params: {
-        page: `${pageId}`,
-        per_page: `${pageSize}`,
-      }
-    });
+    return this.http.get<UserBlogEntity>(blogUrl);
   }
 }
