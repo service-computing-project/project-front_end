@@ -18,15 +18,6 @@ export class LoginService {
       username: usr,
       password: pass
     };
-    return this.http.post<any>(this.loginReqUrl, postData).pipe(map(
-      user => {
-        console.log(user);
-        if (user && user.Data) {
-          console.log(JSON.stringify(user));
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-        return user;
-      }
-    ));
+    return this.http.post<any>(this.loginReqUrl, postData);
   }
 }
