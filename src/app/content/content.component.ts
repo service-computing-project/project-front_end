@@ -50,7 +50,7 @@ export class ContentComponent implements OnInit {
       console.log('content id', this.contentId);
       this.flushData();
       this.isLikedByUser();
-      if (this.authorData.Name === localStorage.getItem('currentUser')) {
+      if (this.authorData.Name === localStorage.getItem('currentUsername')) {
         this.isEditable = true;
       }
     });
@@ -112,10 +112,10 @@ export class ContentComponent implements OnInit {
       .subscribe(
         data => {
           console.log('get like response', data);
-          console.log('currentUser', localStorage.getItem('currentUser'));
+          console.log('currentUser', localStorage.getItem('currentUsername'));
           if (data.State === 'success') {
             for (let i = 0; i < data.Data.length; i++) {
-              if (data.Data[i] === localStorage.getItem('currentUser')) {
+              if (data.Data[i] === localStorage.getItem('currentUsername')) {
                 this.isLiked = true;
               }
             }

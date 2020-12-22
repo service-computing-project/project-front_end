@@ -4,7 +4,7 @@ export interface ContentEntity {
   ID: string;
   Detail: string;
   OwnID: string;
-  PublishDate: string;
+  PublishDate: number;
   LikeNum: number;
   Public: boolean;
   Tag: string[];

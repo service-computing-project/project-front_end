@@ -11,6 +11,11 @@ export interface NewPostReq {
   isPublic:	boolean;  // 是否公开
 }
 
+export interface NewPostRes {
+  State: string;
+  Data: [];
+}
+
 export interface PublicRes {
   State: string;
   Data: PublicDataItem[];

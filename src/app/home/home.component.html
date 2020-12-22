@@ -40,6 +40,11 @@
                 />
               </nz-form-control>
             </nz-form-item>
+            <nz-form-item>
+              <nz-radio-group formControlName="visibleRange" [(ngModel)]="visibleRangeValue">
+                <label *ngFor="let val of visibleRangeValues" nz-radio [nzValue]="val">{{val}}</label>
+              </nz-radio-group>
+            </nz-form-item>
           </form>
         </nz-modal>
       </div>
