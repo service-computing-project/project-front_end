@@ -118,7 +118,7 @@ export class HomeComponent implements OnInit {
   createSendOkNotification(): void {
     this.notification
       .blank(
-        '成功',
+        '提示',
         '发送成功',
         { nzDuration: 2000 }
       )
@@ -129,7 +129,7 @@ export class HomeComponent implements OnInit {
   createSendFailedNotification(): void {
     this.notification
       .blank(
-        '失败',
+        '提示',
         '发送失败',
         { nzDuration: 2000 }
       )
@@ -150,10 +150,10 @@ export class HomeComponent implements OnInit {
     this.isEditOkLoading = true;
     let form = this.form.value;
     form.tags = this.splitTags(form.tags);
-    form.visibleRange = form.visibleRange === '公开' ? true : false;
+    let isPublic = form.visibleRange === '公开' ? true : false;
     console.log('form before send new post', form);
     this.homeService.
-      sendNewPost(form.content, form.tags, form.visibleRange)
+      sendNewPost(form.content, form.tags, isPublic)
       .subscribe(
         data => {
           console.log('send new post response', data);
