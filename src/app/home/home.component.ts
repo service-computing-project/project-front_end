@@ -154,28 +154,23 @@ export class HomeComponent implements OnInit {
           console.log('send new post response', data);
           if (data.State === 'success') {
             this.createSendOkNotification();
-            setTimeout(() => {
-              this.isEditVisible = false;
-              this.isEditOkLoading = false;
-              this.getPage(1, this.pageSize);
-            }, 400);
+            this.isEditVisible = false;
+            this.isEditOkLoading = false;
+            this.getPage(1, this.pageSize);
+            this.form.reset();
           }
           else {
             console.log('send new post response error state:', data.State);
             this.createSendFailedNotification();
-            setTimeout(() => {
-              this.isEditVisible = false;
-              this.isEditOkLoading = false;
-            }, 400);
+            this.isEditVisible = false;
+            this.isEditOkLoading = false;
           }
         },
         error => {
           console.log('send new post error:',error);
           this.createSendFailedNotification();
-            setTimeout(() => {
-              this.isEditVisible = false;
-              this.isEditOkLoading = false;
-            }, 400);
+          this.isEditVisible = false;
+          this.isEditOkLoading = false;
         }
       )
   }
