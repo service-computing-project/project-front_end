@@ -29,7 +29,7 @@
             <p class="createTime">{{notification.Data.CreateTime}}</p>
           </div>
         </div>
-        <div class="notificationContainer" *ngIf="!userNotificationData">
+        <div class="notificationContainer" *ngIf="!userNotificationData || userNotificationData.Notification.length==0">
           <nz-empty></nz-empty>
         </div>
       </nz-tab>
