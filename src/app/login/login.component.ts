@@ -29,10 +29,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUsername');
   }
 
   login() {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUsername');
     this.loading = true;
     this.loginService.postLogin(this.model.username, this.model.password).subscribe(
       user => {
@@ -40,6 +42,7 @@ export class LoginComponent implements OnInit {
         if (user.State == 'success' && user.Data) {
           console.log(JSON.stringify(user));
           localStorage.setItem('currentUser', JSON.stringify(user));
+          localStorage.setItem('currentUsername', this.model.username);
 
           // to be modified
           this.createSuccessNotification();

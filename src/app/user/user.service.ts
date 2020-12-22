@@ -18,20 +18,20 @@ export class UserService {
 
   public getUserInfo(id: string): Observable<UserInfoEntity> {
     let userUrl = this.userBaseUrl + id;
-    console.log(userUrl);
+    // console.log(userUrl);
     return this.http.get<UserInfoEntity>(userUrl);
     // return this.http.get<UserInfoEntity>(userUrl, {headers: new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'})});
   }
 
   public getNotification(): Observable<UserNotificationEntity> {
     let notificationUrl = this.notificationBaseUrl + 'all';
-    console.log(notificationUrl);
+    // console.log(notificationUrl);
     return this.http.get<UserNotificationEntity>(notificationUrl);
   }
 
   public deleteNotification(id: number) {
     let deleteUrl = this.notificationBaseUrl + id;
-    console.log(deleteUrl);
+    // console.log(deleteUrl);
     return this.http.delete<any>(deleteUrl);
   }
 

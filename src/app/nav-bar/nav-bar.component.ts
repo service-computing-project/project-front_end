@@ -51,6 +51,7 @@ export class NavBarComponent implements OnInit {
       console.log(res);
     });
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUsername');
     this.router.navigate(['/login']);
   }
 

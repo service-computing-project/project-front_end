@@ -34,10 +34,10 @@ export class UserComponent implements OnInit {
     });
     this.flushData();
 
-    var currentUser = localStorage.getItem('currentUser');
-    if(currentUser) {
-      console.log(currentUser);
-    }
+    // var currentUser = localStorage.getItem('currentUser');
+    // if(currentUser) {
+    //   console.log(currentUser);
+    // }
     this.getNotification();
 
     this.currentPageId = 1;
@@ -58,7 +58,7 @@ export class UserComponent implements OnInit {
   getNotification(): void {
     this.userService.getNotification().subscribe(res => {
       this.userNotificationData = res;
-      this.notifications = res.Notification;
+      this.notifications = res.Notifications;
       console.log(res);
     });
   }
