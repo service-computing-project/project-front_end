@@ -63,7 +63,7 @@
       <nz-tab nzTitle="Notification Center" *ngIf="isSelf">
         <div class="notificationContainer" *ngIf="userNotifications != null">
           <div class="notificationCard" *ngFor="let notification of userNotifications">
-            <p class="targetUser">From {{notification.User.Name}}</p>
+            <p class="targetUser">{{notification.User.Name}} likes</p>
             <p class="content">{{notification.Notification.Content}}</p>
             <p class="createTime">
               {{notification.Notification.CreateTime | date:'yyyy-MM-dd HH:mm:ss'}}
