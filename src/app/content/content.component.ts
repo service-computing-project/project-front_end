@@ -50,22 +50,33 @@ export class ContentComponent implements OnInit {
       console.log('content id', this.contentId);
       this.flushData();
       this.isLikedByUser();
-      if (this.authorData.Name === localStorage.getItem('currentUsername')) {
-        this.isEditable = true;
-      }
+
     });
   }
 
   flushData() {
     this.contentService.
       getContentById(this.contentId)
-      .subscribe(data => {
-        console.log('response', data);
-        this.contentDetail = data.Data;
-        this.authorData = data.User;
-        // debug
-        this.contentDetail.Tag.push('test tag2');
-      })
+      .subscribe(
+        data => {
+          if (data.State === 'success') {
+            console.log('get content by id response', data);
+            this.contentDetail = data.Data;
+            this.authorData = data.User;
+            console.log('current user:', localStorage.getItem('currentUsername'));
+            console.log('content author', this.authorData.Name);
+            if (this.authorData.Name === localStorage.getItem('currentUsername')) {
+              this.isEditable = true;
+            }
+          }
+          else {
+            console.log('get content by id response error state', data.State);
+          }
+        },
+        error => {
+          console.log('get content by id error', error);
+        }
+      )
   }
 
   createNoLoginNotification(): void {
