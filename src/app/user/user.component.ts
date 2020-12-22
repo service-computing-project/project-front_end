@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
   userNotificationData: UserNotificationEntity;
   userId: string;
 
-  // Notification: any[];
+  notifications: any[];
 
   currentPageId: number;
   pageSize: number;
@@ -58,6 +58,7 @@ export class UserComponent implements OnInit {
   getNotification(): void {
     this.userService.getNotification().subscribe(res => {
       this.userNotificationData = res;
+      this.notifications = res.Notification;
       console.log(res);
     });
   }

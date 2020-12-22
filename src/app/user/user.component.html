@@ -27,8 +27,8 @@
         </div> -->
       </nz-tab>
       <nz-tab nzTitle="Notification Center">
-        <div class="notificationContainer" *ngIf="userNotificationData">
-          <div class="notificationCard" *ngFor="let notification of userNotificationData.Notification">
+        <div class="notificationContainer">
+          <div class="notificationCard" *ngFor="let notification of notifications">
             <p class="targetUser">{{notification.User.Name}}：</p>
             <p class="content">{{notification.Data.Content}}</p>
             <p class="createTime">{{notification.Data.CreateTime}}</p>
